@@ -5,7 +5,7 @@
     text-align: center;
     font-size: 18px;
     margin: auto;
-    background-color: darkgreen;
+    background-color: blue;
     width: 100%;
     color: cornsilk;
 }
@@ -17,6 +17,11 @@ h1 {
     font-size: 18px;
     background-color: blue;
     color: cornsilk;
+    
+}
+
+body{
+    background-image: url(background-1.jfif);
     
 }
 
