@@ -1,12 +1,13 @@
 .row {
-    position: absolute;
+    position: center;
     left: 0;
     top: 50%;
-    width: 100%;
     text-align: center;
     font-size: 18px;
-    margin: left;
-    background-color: darkgreen;
+    margin: auto;
+    background-color: blue;
+    width: 100%;
+    color: cornsilk;
 }
 
 h1 {
@@ -16,6 +17,24 @@ h1 {
     font-size: 18px;
     background-color: blue;
     color: cornsilk;
+    
+}
+
+.col-s12{
+    position: absolute;
+    left: 0;
+    top: 50%;
+    text-align: center;
+    font-size: 18px;
+    margin: auto;
+    background-color: blue;
+    width: 100%;
+    color: cornsilk;
+
+}
+
+body{
+    background-image: url(background-1.jfif);
     
 }
 
