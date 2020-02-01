@@ -9,7 +9,7 @@ $("#class").on("click", function(){
 
     let bandName = $("#searchinput").val();
 
-
+    
     getBandsInTownEvents(bandName);
 });
 
