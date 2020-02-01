@@ -2,11 +2,12 @@
     position: absolute;
     left: 0;
     top: 50%;
-    width: 100%;
     text-align: center;
     font-size: 18px;
-    margin: left;
+    margin: auto;
     background-color: darkgreen;
+    width: 100%;
+    color: cornsilk;
 }
 
 h1 {
