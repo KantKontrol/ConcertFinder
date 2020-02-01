@@ -14,8 +14,8 @@ $("#class").on("click", function(){
 });
 
 function getBandsInTownEvents(bandName, date){
-    var app_id = "0e0044c7d7a73f73811a78506b57e4ef";
 
+    var app_id = "0e0044c7d7a73f73811a78506b57e4ef";
     var queryURL = "https://rest.bandsintown.com/artists/" + bandName+ "/events?app_id=" + app_id;
 
     console.log(queryURL);
@@ -24,7 +24,12 @@ function getBandsInTownEvents(bandName, date){
         url: queryURL,
         method: "GET"
     }).then(function(response){
-        console.log(response);
+
+        for(let i=0;i < response.length;i++){
+            
+            console.log(response[i]);
+        }
+        
     });    
 }
 
