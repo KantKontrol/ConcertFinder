@@ -9,7 +9,7 @@ $("#class").on("click", function(){
 
     let bandName = $("#searchinput").val();
 
-    
+
     getBandsInTownEvents(bandName);
 });
 
@@ -26,10 +26,31 @@ function getBandsInTownEvents(bandName, date){
     }).then(function(response){
 
         for(let i=0;i < response.length;i++){
+
+            let venueName = response[i].venue.name;
+            let venueCity = response[i].venue.city;
+            let offerTickets = response[i].offers[0].url;
             
-            console.log(response[i]);
+            console.log({venueName, venueCity, offerTickets});
+            displayEvent(venueName, venueCity, offerTickets);
+           
         }
         
     });    
+}
+
+function displayEvent(venueName, venueCity, offerTickets){
+
+    let displayDiv = $("<div>");
+    let vName = $("<h1>").html(venueName);
+    let vCity = $("<h1>").html(venueCity);
+    let ticketLink = $("<a>").attr("href", offerTickets);
+    ticketLink.html("Tickets");
+
+    displayDiv.append(vName);
+    displayDiv.append(vCity);
+    displayDiv.append(ticketLink);
+
+    $("#resultdiv").append(displayDiv);
 }
 
