@@ -36,7 +36,7 @@
     <script type="text/javascript">
 
         // Here we are building the URL we need to query the database
-        var queryURL = "https://get.geojs.io/";
+        var queryURL = "https://get.geojs.io/v1/ip.json";
 
         // Here we run our AJAX call to the GEO API
         $.ajax({
@@ -51,6 +51,7 @@
 
                 // Log the resulting object
                 console.log(response);
+
             });
     </script>
 </body>
