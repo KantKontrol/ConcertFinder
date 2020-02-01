@@ -8,8 +8,6 @@
     <link rel="stylesheet" href="style.css">
     <title>Document</title>
 
-    <!-- Jquery Link -->
-    <script src="http://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha256-pasqAKBDmFT4eHoN2ndd6lN370kFiGUFyTiUHWhU7k8=" crossorigin="anonymous"></script>
 </head>
 
 <body>
@@ -26,8 +24,50 @@
     <div class="resultbox" id="resultdiv">
         Results
     </div>
+    <!-- Jquery Link -->
+    <script src="http://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha256-pasqAKBDmFT4eHoN2ndd6lN370kFiGUFyTiUHWhU7k8=" crossorigin="anonymous">
 
-    <script src="script.js"></script>
+            var queryUrl = "https://get.geojs.io/";
+            $.ajax({
+                url: queryURL,
+                method: "GET"
+            })
+                .then(function (response) {
+                    console.log(queryUrl);
+                    console.log(response);
+                });
+
+            var queryUrl1 = "https://get.geojs.io/v1/ip/geo.json";
+            $.ajax({
+                url: queryURL1,
+                method: "GET"
+            })
+                .then(function (response) {
+                    console.log(queryUrl1);
+                    console.log(response);
+                });
+            // This is our API key
+            var APIKey = "166a433c57516f51dfab1f7edaed8413";
+
+            // Here we are building the URL we need to query the database
+            var queryURL = "https://api.openweathermap.org/data/2.5/weather?" +
+                "q=Bujumbura,Burundi&units=imperial&appid=" + APIKey;
+
+            // Here we run our AJAX call to the OpenWeatherMap API
+            $.ajax({
+                url: queryURL,
+                method: "GET"
+            })
+                // We store all of the retrieved data inside of an object called "response"
+                .then(function (response) {
+
+                    // Log the queryURL
+                    console.log(queryURL);
+
+                    // Log the resulting object
+                    console.log(response);
+        </script>
 </body>
 
 </html>
