@@ -1,13 +1,22 @@
-.row {
-    position: center;
+/*.row {
+     position: center;
     left: 0;
     top: 50%;
     text-align: center;
     font-size: 18px;
     margin: auto;
-    background-color: blue;
+    
     width: 100%;
-    color: cornsilk;
+    
+} */
+
+.mainColor {
+    background-color: #2d545e;
+    color: #e1b382;
+}
+
+.mainContent {
+    margin-top: 15px;
 }
 
 h1 {
@@ -20,8 +29,8 @@ h1 {
     
 }
 
-.col-s12{
-    position: absolute;
+/*.col-s12{
+     position: absolute;
     left: 0;
     top: 50%;
     text-align: center;
@@ -31,10 +40,9 @@ h1 {
     width: 100%;
     color: cornsilk;
 
-}
+} */
 
 body{
-    background-image: url(background-1.jfif);
-    
+    background-image: url(./navy_blue.png);
 }
 
