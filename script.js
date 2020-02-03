@@ -27,28 +27,25 @@ function getBandsInTownEvents(bandName, date){
 
         for(let i=0;i < response.length;i++){
 
-            let venueName = response[i].venue.name;
-            let venueCity = response[i].venue.city;
+            let venue = response[i].venue.name + ", " + response[i].venue.city;
             let offerTickets = response[i].offers[0].url;
             
-            console.log({venueName, venueCity, offerTickets});
-            displayEvent(venueName, venueCity, offerTickets);
+            console.log({venue, offerTickets});
+            displayEvent(venue, offerTickets);
            
         }
         
     });    
 }
 
-function displayEvent(venueName, venueCity, offerTickets){
+function displayEvent(venue, offerTickets){
 
     let displayDiv = $("<div>");
-    let vName = $("<h1>").html(venueName);
-    let vCity = $("<h1>").html(venueCity);
+    let vName = $("<h1>").html(venue);
     let ticketLink = $("<a>").attr("href", offerTickets);
     ticketLink.html("Tickets");
 
     displayDiv.append(vName);
-    displayDiv.append(vCity);
     displayDiv.append(ticketLink);
 
     $("#resultdiv").append(displayDiv);

@@ -34,7 +34,8 @@ h1 {
 }
 
 body{
-    background-image: url(background-1.jfif);
-    
+    background-image: url(background-1.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
