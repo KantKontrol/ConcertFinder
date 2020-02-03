@@ -8,24 +8,23 @@
     <link rel="stylesheet" href="style.css">
     <title>Document</title>
 
+    <!--CSS Link for Materialize -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
     <!-- Jquery Link Minified -->
-    <script src="http://code.jquery.com/jquery-3.4.1.min.js"
-        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <script src="http://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script> 
 </head>
 
 <body>
     <h1>Concert Global</h1>
 
-    <div class="container">
-
-        <div class="row">
-            <div class="col s12">Artist<input id="searchArtist" class="search" type="text"></div>
-        </div>
+    <div class="container mainContent">
 
         <div class="row" id="searchdiv">
-            <div class="col s4">Zip Code<input id="searchZip" class="Location" type="text"></div>
-            <div class="col s4">Date<input id="searchDate" class="search" type="text"></div>
-            <div class="col s4"><button id="searchButton">Search</button></div>
+            <div class="col s3">Artist<input id="searchArtist" class="search" type="text"></div>
+            <div class="col s3">Zip Code<input id="searchZip" class="Location" type="text"></div>
+            <div class="col s3">Date<input id="searchDate" class="search" type="text"></div>
+            <div class="col s3"><button id="searchButton">Search</button></div>
     
         </div>
 
