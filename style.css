@@ -16,7 +16,7 @@
 }
 
 .mainContent {
-
+    margin-top: 15px;
 
 }
 
@@ -44,8 +44,6 @@ h1 {
 } */
 
 body{
-    background-image: url(background-1.jpg);
-    background-repeat: no-repeat;
-    background-size: cover;
+    background-image: url(./navy_blue.png);
 }
 

@@ -48,6 +48,6 @@ function displayEvent(venue, offerTickets){
     displayDiv.append(vName);
     displayDiv.append(ticketLink);
 
-    $("#resultdiv").append(displayDiv);
+    $("#resultDiv").append(displayDiv);
 }
 
