@@ -10,9 +10,13 @@
     
 } */
 
+.mainColor {
+    background-color: #2d545e;
+    color: #e1b382;
+}
+
 .mainContent {
-    background-color: blue;
-    color: cornsilk;
+
 
 }
 
