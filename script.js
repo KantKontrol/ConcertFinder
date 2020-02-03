@@ -5,9 +5,9 @@
 //https://rest.bandsintown.com/artists/Dream%20Theater?app_id=0e0044c7d7a73f73811a78506b57e4ef
 
 
-$("#class").on("click", function(){
+$("#searchButton").on("click", function(){
 
-    let bandName = $("#searchinput").val();
+    let bandName = $("#searchArtist").val();
 
 
     getBandsInTownEvents(bandName);
