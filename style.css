@@ -1,13 +1,15 @@
 .row {
     position: center;
     left: 0;
-    top: 50%;
+    top: 25%;
     text-align: center;
     font-size: 18px;
     margin: auto;
     background-color: blue;
     width: 100%;
     color: cornsilk;
+    border: 1px solid black;
+    padding: 25px 50px;
 }
 
 h1 {
