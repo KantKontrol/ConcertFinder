@@ -9,8 +9,11 @@ $("#searchButton").on("click", function(){
 
     let bandName = $("#searchArtist").val();
 
+    $("#resultDiv").empty();
+
 
     getBandsInTownEvents(bandName);
+    getTicketMasterEvents(bandName);
 });
 
 function getBandsInTownEvents(bandName, date){
@@ -25,22 +28,59 @@ function getBandsInTownEvents(bandName, date){
         method: "GET"
     }).then(function(response){
 
-        console.log(response);
+        //console.log(response);
 
         let bandImage = response[0].artist.image_url;
 
         for(let i=0;i < response.length;i++){
 
             let venue = response[i].venue.name + ", " + response[i].venue.city;
-            let offerTickets = response[i].offers[0].url;
+            let offerTickets = response[i].url;
             
-            
-            console.log({venue, offerTickets, bandImage});
+            //console.log({venue, offerTickets, bandImage});
             displayEvent(bandImage, venue, offerTickets);
-           
         }
         
     });    
+}
+
+//TicketMaster Key: KuVXm1LhnrpiuKMG26AxMNsWRbNXefMp
+
+//Ticketmaster URL: https://app.ticketmaster.com/discovery/v2/events.json?apikey=  keyword=artistname
+
+function getTicketMasterEvents(bandName, location){
+
+  var app_id = "KuVXm1LhnrpiuKMG26AxMNsWRbNXefMp";
+
+  var queryURL = "https://app.ticketmaster.com/discovery/v2/events.json?apikey=" + app_id + "&keyword=" + bandName; // + "&sort=name,date,asc";
+
+  console.log(queryURL);
+
+  $.ajax({
+    url: queryURL,
+    method: "GET"
+  }).then(function(response){
+
+    var events = response._embedded.events;
+
+
+    let bandImage = events[0].images[0].url;
+
+    for(let i=0;i < events.length;i++){
+
+        let venueName = events[i]._embedded.venues[0].name;
+        let venueCity = events[i]._embedded.venues[0].city.name;
+
+        let venue = venueName + ", " + venueCity;
+        let offerTickets = events[i].url;
+        
+        //console.log({venue, offerTickets, bandImage});
+        displayEvent(bandImage, venue, offerTickets);
+    }
+
+  });
+
+
 }
 
 function displayEvent(bandImage, venue, offerTickets){ //builds a materialze card and displays content
