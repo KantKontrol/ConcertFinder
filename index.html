@@ -38,6 +38,7 @@
     <div class="container mainContent mainColor">
 
         <div id="searchdiv" class="row">
+
             <div class="col s3">Artist<input id="searchArtist" class="search" type="text"></div>
             <div class="col s3">Zip Code<input id="searchZip" class="Location" type="text"></div>
             <div class="col s3">Date<input id="searchDate" class="search" type="text"></div>
@@ -48,6 +49,7 @@
         <div id="resultDiv" class="row">
 
         </div>
+        <div id="localEvents" class="row"></div>
 
     </div>
 
@@ -56,7 +58,7 @@
     <script type="text/javascript">
 
         // Here we are building the URL we need to query the database
-        var queryURL = "https://get.geojs.io/v1/ip/geo.json";
+        var queryURL = "https://freegeoip.app/json/";
 
         // Here we run our AJAX call to the GEO API
         $.ajax({
@@ -72,13 +74,14 @@
                 // Log the resulting object
                 console.log(response);
                 console.log(response.city);
+                console.log(response.zip_code);
 
             });
        // $("#searchButton").on("click", function (event) {
          //   event.preventDefault();
            // var artist = $("#searchArtist").val();
 //var 
-   //     })
+   //     })-->
     </script>
 </body>
 
