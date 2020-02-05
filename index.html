@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    
+
     <title>Document</title>
 
     <!--CSS Link for Materialize -->
@@ -15,7 +15,8 @@
     <link rel="stylesheet" href="style.css">
 
     <!-- Jquery Link Minified -->
-    <script src="http://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script> 
+    <script src="http://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 </head>
 
 <body>
@@ -23,32 +24,64 @@
     <!-- Header -->
     <nav>
         <div class="nav-wrapper mainColor">
-          <a href="#" class="brand-logo mainColor">Concert Global</a>
-          <ul id="nav-mobile" class="right hide-on-med-and-down">
-            <li><a href="#">Sass</a></li>
-            <li><a href="#">Components</a></li>
-            <li><a href="#">JavaScript</a></li>
-          </ul>
+            <a href="#" class="brand-logo mainColor">Concert Global</a>
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+                <li><a href="#">Sass</a></li>
+                <li><a href="#">Components</a></li>
+                <li><a href="#">JavaScript</a></li>
+            </ul>
         </div>
     </nav>
-    
-    
+
+
     <!-- Main Content -->
     <div class="container mainContent mainColor">
 
         <div id="searchdiv" class="row">
-            <div class="col s3">Artist<input id="searchArtist" class="search" type="text"></div>
-            <div class="col s3">Zip Code<input id="searchZip" class="Location" type="text"></div>
-            <div class="col s3">Date<input id="searchDate" class="search" type="text"></div>
-            <div class="col s3"><button id="searchButton">Search</button></div>
-    
+            <div class="row">
+                <form class="col s12">
+                    <div class="row">
+                        <div class="input-field col s6">
+                            <input placeholder="Artists" id="searchArtist" type="text" class="validate">
+                        </div>
+                        <div class="input-field col s6">
+                            <input placeholder="ZipCode" id="searchZip" type="text" class="validate">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input placeholder="Date" id="searchDate" type="text" class="validate">
+                        </div>
+                    </div>
+            </div>
+            </form>
         </div>
-
-        <div id="resultDiv" class="row">
-
-        </div>
+        <button class="btn waves-effect waves-light" id="searchButton" type="submit" name="action">Submit</button>
 
     </div>
+
+    <div id="resultDiv" class="row">
+
+    </div>
+
+    </div>
+
+    <footer class="grey darken-1">
+        <div class="container">
+            <div class="row">
+                <div class="col l6 s12">
+                    <h5 class="white-text">Footer Content</h5>
+                    <p class="grey-text text-lighten-4">Made By Nicholas DeRissio, Hugo Pierre-Lys and Damian Ramos</p>
+                </div>
+            </div>
+        </div>
+        <div class="footer-copyright">
+            <div class="container">
+                © 2014 Copyright Text
+                <a class="grey-text text-lighten-4 right" href="#!">More Links</a>
+            </div>
+        </div>
+    </footer>
 
 
     <script src="script.js"></script>
