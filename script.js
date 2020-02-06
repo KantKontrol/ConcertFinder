@@ -5,71 +5,71 @@
 //https://rest.bandsintown.com/artists/Dream%20Theater?app_id=0e0044c7d7a73f73811a78506b57e4ef
 
 
-$("#searchButton").on("click", function(){
+$("#searchButton").on("click", function () {
 
-    let bandName = $("#searchArtist").val();
+  let bandName = $("#searchArtist").val();
 
-
-    getBandsInTownEvents(bandName);
+  getLocation();
+  getBandsInTownEvents(bandName);
 });
 
-function getBandsInTownEvents(bandName, date){
+function getBandsInTownEvents(bandName, date) {
 
-    var app_id = "0e0044c7d7a73f73811a78506b57e4ef";
-    var queryURL = "https://rest.bandsintown.com/artists/" + bandName+ "/events?app_id=" + app_id;
+  var app_id = "0e0044c7d7a73f73811a78506b57e4ef";
+  var queryURL = "https://rest.bandsintown.com/artists/" + bandName + "/events?app_id=" + app_id;
 
-    console.log(queryURL);
+  console.log(queryURL);
 
-    $.ajax({
-        url: queryURL,
-        method: "GET"
-    }).then(function(response){
+  $.ajax({
+    url: queryURL,
+    method: "GET"
+  }).then(function (response) {
 
-        console.log(response);
+    console.log(response);
 
-        let bandImage = response[0].artist.image_url;
+    let bandImage = response[0].artist.image_url;
 
-        for(let i=0;i < response.length;i++){
+    for (let i = 0; i < response.length; i++) {
 
-            let venue = response[i].venue.name + ", " + response[i].venue.city;
-            let offerTickets = response[i].offers[0].url;
-            
-            
-            console.log({venue, offerTickets, bandImage});
-            displayEvent(bandImage, venue, offerTickets);
-           
-        }
-        
-    });    
+      let venue = response[i].venue.name + ", " + response[i].venue.city;
+      let offerTickets = response[i].offers[0].url;
+
+
+      console.log({ venue, offerTickets, bandImage });
+      displayEvent(bandImage, venue, offerTickets);
+
+    }
+
+  });
 }
 
-function displayEvent(bandImage, venue, offerTickets){ //builds a materialze card and displays content
+function displayEvent(bandImage, venue, offerTickets) { //builds a materialze card and displays content
 
-    let colDiv = $("<div>").attr("class", "col s12 m5");
+  let colDiv = $("<div>").attr("class", "col s12 m5");
 
-    let cardDiv = $("<div>").attr("class", "card");
-    cardDiv.css({"margin":"10px", "width":"max-content", "float":"left"});
-    colDiv.append(cardDiv);
+  let cardDiv = $("<div>").attr("class", "card");
+  cardDiv.css({ "margin": "10px", "width": "max-content", "float": "left" });
+  colDiv.append(cardDiv);
 
-    let cardImg = $("<div>").attr("class", "card-image");
-    cardDiv.append(cardImg);
+  let cardImg = $("<div>").attr("class", "card-image");
+  cardDiv.append(cardImg);
 
-    let img = $("<img>").attr("src", bandImage);
-    img.css({"width":"300px", "height":"200px"});
-    cardImg.append(img);
+  let img = $("<img>").attr("src", bandImage);
+  img.css({ "width": "300px", "height": "200px" });
+  cardImg.append(img);
 
-    let cardTitle = $("<span>").attr("class", "card-title");
-    cardTitle.html(venue);
-    cardImg.append(cardTitle);
+  let cardTitle = $("<span>").attr("class", "card-title");
+  cardTitle.html(venue);
+  cardImg.append(cardTitle);
 
-    let cardContent = $("<div>").attr("class", "card-content");
-    cardDiv.append(cardContent);
+  let cardContent = $("<div>").attr("class", "card-content");
+  cardDiv.append(cardContent);
 
-    let cardAction = $("<div>").attr("class", "card-action");
-    cardAction.html($("<a>").attr("href", offerTickets).html("Tickets"));
-    cardDiv.append(cardAction);
+  let cardAction = $("<div>").attr("class", "card-action");
+  cardAction.html($("<a>").attr("href", offerTickets).html("Tickets"));
+  cardDiv.append(cardAction);
 
-    $("#resultDiv").append(cardDiv);
+  $("#resultDiv").append(cardDiv);
 }
 
 /*<div class="col s12 m7">
@@ -88,3 +88,28 @@ function displayEvent(bandImage, venue, offerTickets){ //builds a materialze car
 </div>
 </div>*/
 
+//=======================================================
+// Here we are building the URL we need to query the database
+
+function getLocation() {
+  var queryURL = "https://freegeoip.app/json/";
+
+  // Here we run our AJAX call to the GEO API
+  $.ajax({
+    url: queryURL,
+    method: "GET"
+  })
+    // We store all of the retrieved data inside of an object called "response"
+    .then(function (response) {
+
+      // Log the queryURL
+      console.log(queryURL);
+
+      // Log the resulting object
+      console.log(response);
+      console.log(response.city);
+      console.log(response.zip_code);
+      $("#localEvents").html(response.city);
+
+    });
+}
