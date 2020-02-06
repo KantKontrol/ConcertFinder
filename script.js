@@ -5,7 +5,8 @@
 //https://rest.bandsintown.com/artists/Dream%20Theater?app_id=0e0044c7d7a73f73811a78506b57e4ef
 
 
-$("#searchButton").on("click", function () {
+$("#searchButton").on("click", function (e) {
+  e.preventDefault();
 
   let bandName = $("#searchArtist").val();
 
@@ -28,7 +29,7 @@ function getBandsInTownEvents(bandName, date) {
     method: "GET"
   }).then(function (response) {
 
-    console.log(response);
+   // console.log(response);
 
     let bandImage = response[0].artist.image_url;
 
@@ -36,10 +37,12 @@ function getBandsInTownEvents(bandName, date) {
 
 
             let venue = response[i].venue.name + ", " + response[i].venue.city;
+            let date = response[i].datetime;
             let offerTickets = response[i].url;
+
             
             //console.log({venue, offerTickets, bandImage});
-            displayEvent(bandImage, venue, offerTickets);
+            displayEvent(bandImage, venue, date, offerTickets);
         }
         
     });    
@@ -62,8 +65,9 @@ function getTicketMasterEvents(bandName, location){
     method: "GET"
   }).then(function(response){
 
-    var events = response._embedded.events;
+    console.log(response);
 
+    var events = response._embedded.events;
 
     let bandImage = events[0].images[0].url;
 
@@ -73,17 +77,19 @@ function getTicketMasterEvents(bandName, location){
         let venueCity = events[i]._embedded.venues[0].city.name;
 
         let venue = venueName + ", " + venueCity;
+        let date = events[i].dates.start.localDate;
         let offerTickets = events[i].url;
+
+        console.log(date);
         
-        //console.log({venue, offerTickets, bandImage});
-        displayEvent(bandImage, venue, offerTickets);
+        displayEvent(bandImage, venue, date, offerTickets);
     }
 
   });
 }
 
 
-function displayEvent(bandImage, venue, offerTickets) { //builds a materialze card and displays content
+function displayEvent(bandImage, venue, date, offerTickets) { //builds a materialze card and displays content
 
 
   let colDiv = $("<div>").attr("class", "col s12 m5");
@@ -104,6 +110,8 @@ function displayEvent(bandImage, venue, offerTickets) { //builds a materialze ca
   cardImg.append(cardTitle);
 
   let cardContent = $("<div>").attr("class", "card-content");
+  let dateHolder = $("<p>").html(date);
+  cardContent.append(dateHolder);
   cardDiv.append(cardContent);
 
   let cardAction = $("<div>").attr("class", "card-action");
