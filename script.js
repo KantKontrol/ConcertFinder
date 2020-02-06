@@ -37,7 +37,9 @@ function getBandsInTownEvents(bandName, date) {
 
 
             let venue = response[i].venue.name + ", " + response[i].venue.city;
-            let date = response[i].datetime;
+            let rawDate = response[i].datetime;
+            let date = rawDate.substring(0,10);
+            date = arrangeDate(date);
             let offerTickets = response[i].url;
 
             
@@ -77,15 +79,26 @@ function getTicketMasterEvents(bandName, location){
         let venueCity = events[i]._embedded.venues[0].city.name;
 
         let venue = venueName + ", " + venueCity;
+        
         let date = events[i].dates.start.localDate;
+        date = arrangeDate(date);
+
         let offerTickets = events[i].url;
 
-        console.log(date);
+       // console.log(date);
         
         displayEvent(bandImage, venue, date, offerTickets);
     }
 
   });
+}
+
+function arrangeDate(date){
+
+  let splitDate = date.split("-");
+  let newDate = splitDate[1] + "-" + splitDate[2] + "-" + splitDate[0];
+
+  return newDate;
 }
 
 
