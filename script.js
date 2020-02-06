@@ -111,7 +111,7 @@ function displayEvent(bandImage, venue, date, offerTickets) { //builds a materia
   cardImg.append(cardTitle);
 
   let cardContent = $("<div>").attr("class", "card-content");
-  let dateHolder = $("<p>").html(date);
+  let dateHolder = $("<p>").html("Date: " + date).attr("class", "dateColor");
   cardContent.append(dateHolder);
   cardDiv.append(cardContent);
 

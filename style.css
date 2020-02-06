@@ -15,6 +15,11 @@
     color: #e1b382;
 }
 
+.dateColor {
+    color: #e1b382;
+    font-size: large;
+}
+
 .mainContent {
     margin-top: 15px;
 }
