@@ -22,14 +22,10 @@ function getBandsInTownEvents(bandName, date) {
   var app_id = "0e0044c7d7a73f73811a78506b57e4ef";
   var queryURL = "https://rest.bandsintown.com/artists/" + bandName + "/events?app_id=" + app_id;
 
-  console.log(queryURL);
-
   $.ajax({
     url: queryURL,
     method: "GET"
   }).then(function (response) {
-
-   // console.log(response);
 
     let bandImage = response[0].artist.image_url;
 
@@ -37,11 +33,11 @@ function getBandsInTownEvents(bandName, date) {
 
 
             let venue = response[i].venue.name + ", " + response[i].venue.city;
-            let date = response[i].datetime;
+            let rawDate = response[i].datetime;
+            let date = rawDate.substring(0,10);
+            date = arrangeDate(date);
             let offerTickets = response[i].url;
 
-            
-            //console.log({venue, offerTickets, bandImage});
             displayEvent(bandImage, venue, date, offerTickets);
         }
         
@@ -58,14 +54,10 @@ function getTicketMasterEvents(bandName, location){
 
   var queryURL = "https://app.ticketmaster.com/discovery/v2/events.json?apikey=" + app_id + "&keyword=" + bandName; // + "&sort=name,date,asc";
 
-  console.log(queryURL);
-
   $.ajax({
     url: queryURL,
     method: "GET"
   }).then(function(response){
-
-    console.log(response);
 
     var events = response._embedded.events;
 
@@ -77,15 +69,24 @@ function getTicketMasterEvents(bandName, location){
         let venueCity = events[i]._embedded.venues[0].city.name;
 
         let venue = venueName + ", " + venueCity;
+        
         let date = events[i].dates.start.localDate;
-        let offerTickets = events[i].url;
+        date = arrangeDate(date);
 
-        console.log(date);
+        let offerTickets = events[i].url;
         
         displayEvent(bandImage, venue, date, offerTickets);
     }
 
   });
+}
+
+function arrangeDate(date){
+
+  let splitDate = date.split("-");
+  let newDate = splitDate[1] + "-" + splitDate[2] + "-" + splitDate[0];
+
+  return newDate;
 }
 
 
@@ -110,7 +111,7 @@ function displayEvent(bandImage, venue, date, offerTickets) { //builds a materia
   cardImg.append(cardTitle);
 
   let cardContent = $("<div>").attr("class", "card-content");
-  let dateHolder = $("<p>").html(date);
+  let dateHolder = $("<p>").html("Date: " + date).attr("class", "dateColor");
   cardContent.append(dateHolder);
   cardDiv.append(cardContent);
 
@@ -120,22 +121,6 @@ function displayEvent(bandImage, venue, date, offerTickets) { //builds a materia
 
   $("#resultDiv").append(cardDiv);
 }
-
-/*<div class="col s12 m7">
-<div class="card">
-  <div class="card-image">
-    <img src="images/sample-1.jpg">
-    <span class="card-title">Card Title</span>
-  </div>
-  <div class="card-content">
-    <p>I am a very simple card. I am good at containing small bits of information.
-    I am convenient because I require little markup to use effectively.</p>
-  </div>
-  <div class="card-action">
-    <a href="#">This is a link</a>
-  </div>
-</div>
-</div>*/
 
 //=======================================================
 // Here we are building the URL we need to query the database
