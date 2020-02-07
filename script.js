@@ -14,9 +14,11 @@ $("#searchButton").on("click", function (e) {
 
   $("#resultDiv").empty();
 
+
   getLocation();
-  //  getBandsInTownEvents(bandName);
+  getBandsInTownEvents(bandName);
   getTicketMasterEvents(bandName, false, "", "", -1);
+
 });
 
 function getBandsInTownEvents(bandName, date) {
@@ -50,7 +52,9 @@ function getBandsInTownEvents(bandName, date) {
 
 //Ticketmaster URL: https://app.ticketmaster.com/discovery/v2/events.json?apikey=  keyword=artistname
 
+
 function getTicketMasterEvents(bandName, getLocation, city, state, numberOfResults) { //number of results -1 is no limit
+
 
   var app_id = "KuVXm1LhnrpiuKMG26AxMNsWRbNXefMp";
 
@@ -69,6 +73,9 @@ function getTicketMasterEvents(bandName, getLocation, city, state, numberOfResul
   }).then(function (response) {
 
     console.log(response);
+
+    console.log(response);
+
 
     var events = response._embedded.events;
 
@@ -97,6 +104,7 @@ function getTicketMasterEvents(bandName, getLocation, city, state, numberOfResul
         numberOfResults--;
       }
 
+
     }
 
   });
@@ -112,6 +120,7 @@ function arrangeDate(date) {
 
 function displaySideEvent(bandName, date, offerTickets) {
 
+
   let cardDiv = $("<div>").attr("class", "card");
 
   let cardTitle = $("<span>").attr("class", "card-title");
@@ -126,6 +135,7 @@ function displaySideEvent(bandName, date, offerTickets) {
 
   let cardAction = $("<div>").attr("class", "card-action");
   cardAction.html($("<a>").attr("href", offerTickets).html("Tickets"));
+
 
   cardContent.append(cardAction);
 
@@ -183,7 +193,6 @@ function getLocation() {
       console.log(response);
       console.log(response.city);
       console.log(response.zip_code);
-
 
     });
 }
