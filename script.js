@@ -5,6 +5,8 @@
 //https://rest.bandsintown.com/artists/Dream%20Theater?app_id=0e0044c7d7a73f73811a78506b57e4ef
 
 
+getTicketMasterEvents("", true, "clifton", "NJ", 5);
+
 $("#searchButton").on("click", function (e) {
   e.preventDefault();
 
@@ -70,11 +72,12 @@ function getTicketMasterEvents(bandName, getLocation, city, state, numberOfResul
 
     var events = response._embedded.events;
 
-    let bandImage = events[0].images[0].url;
-
+  
     for(let i=0;i < events.length;i++){
 
         let forSideBarName = events[i].name;
+
+        let bandImage = events[i].images[0].url;
 
         let venueName = events[i]._embedded.venues[0].name;
         let venueCity = events[i]._embedded.venues[0].city.name;
@@ -108,6 +111,23 @@ function arrangeDate(date){
 }
 
 function displaySideEvent(bandName, date, offerTickets){
+
+  let cardDiv = $("<div>").attr("class", "card");
+
+  let cardTitle = $("<span>").attr("class", "card-title");
+  cardTitle.html(bandName);
+  cardDiv.append(cardTitle);
+
+  let cardContent = $("<div>").attr("class", "card-content");
+  cardDiv.append(cardContent);
+
+  let dateHolder = $("<p>").html("Date: " + date).attr("class", "dateColor");
+  cardContent.append(dateHolder);
+
+  let cardAction = $("<div>").attr("class", "card-action");
+  cardAction.html($("<a>").attr("href", offerTickets).html("Tickets"));
+
+  cardContent.append(cardAction);
 
 
   $("#localEvents").append(cardDiv);
@@ -163,7 +183,7 @@ function getLocation() {
       console.log(response);
       console.log(response.city);
       console.log(response.zip_code);
-      $("#localEvents").html(response.city);
+      
 
     });
 }
