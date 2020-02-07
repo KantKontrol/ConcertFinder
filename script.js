@@ -13,8 +13,8 @@ $("#searchButton").on("click", function (e) {
     $("#resultDiv").empty();
 
     getLocation();
-    getBandsInTownEvents(bandName);
-    getTicketMasterEvents(bandName);
+  //  getBandsInTownEvents(bandName);
+    getTicketMasterEvents(bandName, false, "", "", -1);
 });
 
 function getBandsInTownEvents(bandName, date) {
@@ -48,22 +48,33 @@ function getBandsInTownEvents(bandName, date) {
 
 //Ticketmaster URL: https://app.ticketmaster.com/discovery/v2/events.json?apikey=  keyword=artistname
 
-function getTicketMasterEvents(bandName, location){
+function getTicketMasterEvents(bandName, getLocation, city, state, numberOfResults){ //number of results -1 is no limit
 
   var app_id = "KuVXm1LhnrpiuKMG26AxMNsWRbNXefMp";
 
-  var queryURL = "https://app.ticketmaster.com/discovery/v2/events.json?apikey=" + app_id + "&keyword=" + bandName; // + "&sort=name,date,asc";
+  var queryURL = "";
+
+  if(getLocation){
+    queryURL = "https://app.ticketmaster.com/discovery/v2/events.json?apikey=" + app_id + "&city=" + city + "&stateCode=" + state + "&radius=10&classificationName=music";
+  }
+  else{
+    queryURL = "https://app.ticketmaster.com/discovery/v2/events.json?apikey=" + app_id + "&keyword=" + bandName;
+  }
 
   $.ajax({
     url: queryURL,
     method: "GET"
   }).then(function(response){
 
+    console.log(response);
+
     var events = response._embedded.events;
 
     let bandImage = events[0].images[0].url;
 
     for(let i=0;i < events.length;i++){
+
+        let forSideBarName = events[i].name;
 
         let venueName = events[i]._embedded.venues[0].name;
         let venueCity = events[i]._embedded.venues[0].city.name;
@@ -74,8 +85,15 @@ function getTicketMasterEvents(bandName, location){
         date = arrangeDate(date);
 
         let offerTickets = events[i].url;
-        
-        displayEvent(bandImage, venue, date, offerTickets);
+
+        if(numberOfResults == -1){
+          displayEvent(bandImage, venue, date, offerTickets);
+        }
+        else if(numberOfResults > 0){
+          displaySideEvent(forSideBarName, date, offerTickets);
+          numberOfResults--;
+        }
+          
     }
 
   });
@@ -89,15 +107,17 @@ function arrangeDate(date){
   return newDate;
 }
 
+function displaySideEvent(bandName, date, offerTickets){
+
+
+  $("#localEvents").append(cardDiv);
+}
+
 
 function displayEvent(bandImage, venue, date, offerTickets) { //builds a materialze card and displays content
 
-
-  let colDiv = $("<div>").attr("class", "col s12 m5");
-
   let cardDiv = $("<div>").attr("class", "card");
   cardDiv.css({ "margin": "10px", "width": "max-content", "float": "left" });
-  colDiv.append(cardDiv);
 
   let cardImg = $("<div>").attr("class", "card-image");
   cardDiv.append(cardImg);
