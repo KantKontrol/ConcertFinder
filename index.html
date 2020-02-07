@@ -15,7 +15,8 @@
     <link rel="stylesheet" href="style.css">
 
     <!-- Jquery Link Minified -->
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script> 
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 </head>
 
 <body>
@@ -23,17 +24,18 @@
     <!-- Header -->
     <nav>
         <div class="nav-wrapper mainColor">
-          <a href="index.html" class="brand-logo mainColor">Concert Global</a>
-          <ul id="nav-mobile" class="right hide-on-med-and-down">
-            <li><a href="#">Sass</a></li>
-            <li><a href="#">Components</a></li>
-            <li><a href="#">JavaScript</a></li>
-          </ul>
+            <a href="index.html" class="brand-logo mainColor">Concert Global</a>
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+                <li><a href="#">Sass</a></li>
+                <li><a href="#">Components</a></li>
+                <li><a href="#">JavaScript</a></li>
+            </ul>
         </div>
     </nav>
 
 
     <!-- Main Content -->
+
     <div class="container mainContent ">
 
         <div class="row">
@@ -74,6 +76,7 @@
 
             <div class="col s2 sidePanel">
 
+
                 <div id="localEvents" class="row"></div>
 
             </div> <!-- end of col s3-->
@@ -82,55 +85,9 @@
         </div>
     </div>
 
-    
 
-    <footer class="grey darken-1">
-        <div class="container">
-            <div class="row">
-                <div class="col l6 s12">
-                    <h5 class="white-text">Footer Content</h5>
-                    <p class="grey-text text-lighten-4">Made By Nicholas DeRissio, Hugo Pierre-Lys and Damian Ramos</p>
-                </div>
-            </div>
-        </div>
-        <div class="footer-copyright">
-            <div class="container">
-                © 2014 Copyright Text
-                <a class="grey-text text-lighten-4 right" href="#!">More Links</a>
-            </div>
-        </div>
-    </footer>
-
+    <footer class="footer1">
 
     <script src="script.js"></script>
-    <script type="text/javascript">
-
-        // Here we are building the URL we need to query the database
-        var queryURL = "https://freegeoip.app/json/";
-
-        // Here we run our AJAX call to the GEO API
-        $.ajax({
-            url: queryURL,
-            method: "GET"
-        })
-            // We store all of the retrieved data inside of an object called "response"
-            .then(function (response) {
-
-                // Log the queryURL
-                console.log(queryURL);
-
-                // Log the resulting object
-                console.log(response);
-                console.log(response.city);
-                console.log(response.zip_code);
-
-            });
-       // $("#searchButton").on("click", function (event) {
-         //   event.preventDefault();
-           // var artist = $("#searchArtist").val();
-//var 
-   //     })-->
-    </script>
 </body>
-
 </html>
