@@ -12,11 +12,13 @@ $("#searchButton").on("click", function (e) {
 
   let bandName = $("#searchArtist").val();
 
-    $("#resultDiv").empty();
+  $("#resultDiv").empty();
 
-    getLocation();
-  //  getBandsInTownEvents(bandName);
-    getTicketMasterEvents(bandName, false, "", "", -1);
+
+  getLocation();
+  getBandsInTownEvents(bandName);
+  getTicketMasterEvents(bandName, false, "", "", -1);
+
 });
 
 function getBandsInTownEvents(bandName, date) {
@@ -34,75 +36,81 @@ function getBandsInTownEvents(bandName, date) {
     for (let i = 0; i < response.length; i++) {
 
 
-            let venue = response[i].venue.name + ", " + response[i].venue.city;
-            let rawDate = response[i].datetime;
-            let date = rawDate.substring(0,10);
-            date = arrangeDate(date);
-            let offerTickets = response[i].url;
+      let venue = response[i].venue.name + ", " + response[i].venue.city;
+      let rawDate = response[i].datetime;
+      let date = rawDate.substring(0, 10);
+      date = arrangeDate(date);
+      let offerTickets = response[i].url;
 
-            displayEvent(bandImage, venue, date, offerTickets);
-        }
-        
-    });    
+      displayEvent(bandImage, venue, date, offerTickets);
+    }
+
+  });
 }
 
 //TicketMaster Key: KuVXm1LhnrpiuKMG26AxMNsWRbNXefMp
 
 //Ticketmaster URL: https://app.ticketmaster.com/discovery/v2/events.json?apikey=  keyword=artistname
 
-function getTicketMasterEvents(bandName, getLocation, city, state, numberOfResults){ //number of results -1 is no limit
+
+function getTicketMasterEvents(bandName, getLocation, city, state, numberOfResults) { //number of results -1 is no limit
+
 
   var app_id = "KuVXm1LhnrpiuKMG26AxMNsWRbNXefMp";
 
   var queryURL = "";
 
-  if(getLocation){
+  if (getLocation) {
     queryURL = "https://app.ticketmaster.com/discovery/v2/events.json?apikey=" + app_id + "&city=" + city + "&stateCode=" + state + "&radius=10&classificationName=music";
   }
-  else{
+  else {
     queryURL = "https://app.ticketmaster.com/discovery/v2/events.json?apikey=" + app_id + "&keyword=" + bandName;
   }
 
   $.ajax({
     url: queryURL,
     method: "GET"
-  }).then(function(response){
+  }).then(function (response) {
 
     console.log(response);
 
+    console.log(response);
+
+
     var events = response._embedded.events;
 
-  
-    for(let i=0;i < events.length;i++){
 
-        let forSideBarName = events[i].name;
+    for (let i = 0; i < events.length; i++) {
 
-        let bandImage = events[i].images[0].url;
+      let forSideBarName = events[i].name;
 
-        let venueName = events[i]._embedded.venues[0].name;
-        let venueCity = events[i]._embedded.venues[0].city.name;
+      let bandImage = events[i].images[0].url;
 
-        let venue = venueName + ", " + venueCity;
-        
-        let date = events[i].dates.start.localDate;
-        date = arrangeDate(date);
+      let venueName = events[i]._embedded.venues[0].name;
+      let venueCity = events[i]._embedded.venues[0].city.name;
 
-        let offerTickets = events[i].url;
+      let venue = venueName + ", " + venueCity;
 
-        if(numberOfResults == -1){
-          displayEvent(bandImage, venue, date, offerTickets);
-        }
-        else if(numberOfResults > 0){
-          displaySideEvent(forSideBarName, date, offerTickets);
-          numberOfResults--;
-        }
-          
+      let date = events[i].dates.start.localDate;
+      date = arrangeDate(date);
+
+      let offerTickets = events[i].url;
+
+      if (numberOfResults == -1) {
+        displayEvent(bandImage, venue, date, offerTickets);
+      }
+      else if (numberOfResults > 0) {
+        displaySideEvent(forSideBarName, date, offerTickets);
+        numberOfResults--;
+      }
+
+
     }
 
   });
 }
 
-function arrangeDate(date){
+function arrangeDate(date) {
 
   let splitDate = date.split("-");
   let newDate = splitDate[1] + "-" + splitDate[2] + "-" + splitDate[0];
@@ -110,7 +118,8 @@ function arrangeDate(date){
   return newDate;
 }
 
-function displaySideEvent(bandName, date, offerTickets){
+function displaySideEvent(bandName, date, offerTickets) {
+
 
   let cardDiv = $("<div>").attr("class", "card");
 
@@ -126,6 +135,7 @@ function displaySideEvent(bandName, date, offerTickets){
 
   let cardAction = $("<div>").attr("class", "card-action");
   cardAction.html($("<a>").attr("href", offerTickets).html("Tickets"));
+
 
   cardContent.append(cardAction);
 
@@ -183,7 +193,6 @@ function getLocation() {
       console.log(response);
       console.log(response.city);
       console.log(response.zip_code);
-      
 
     });
 }
