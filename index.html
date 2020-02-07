@@ -35,85 +35,59 @@
 
 
     <!-- Main Content -->
-    <div class="container mainContent mainColor">
 
-        <div id="searchdiv" class="row">
-            <div class="row">
-                <form class="col s12">
-                    <div class="row">
-                        <div class="input-field col s6">
-                            <input placeholder="Artists" id="searchArtist" type="text" class="validate">
-                        </div>
-                        <div class="input-field col s6">
-                            <input placeholder="ZipCode" id="searchZip" type="text" class="validate">
+    <div class="container mainContent ">
+
+        <div class="row">
+
+            <div class="col s9 mainColor">
+                    <div id="searchdiv" class="row">
+                        <div class="row">
+                            <form class="col s12">
+                                <div class="row">
+                                    <div class="input-field col s6">
+                                        <input placeholder="Artists" id="searchArtist" type="text" class="validate">
+                                    </div>
+                                    <div class="input-field col s6">
+                                        <input placeholder="ZipCode" id="searchZip" type="text" class="validate">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="input-field col s12">
+                                        <input placeholder="Date" id="searchDate" type="text" class="validate">
+                                    </div>
+                                </div>
+
+                                <button class="btn waves-effect waves-light" id="searchButton">Submit</button>
+
+                            </form>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="input-field col s12">
-                            <input placeholder="Date" id="searchDate" type="text" class="validate">
-                        </div>
-                    </div>
+
+        
+                <div id="resultDiv" class="row"></div>
+
+            </div> <!-- end of col s9-->
+
+            <div class="col s1">
+
+
             </div>
 
-        </div>
+            <div class="col s2 sidePanel">
 
-        <div class="button"> <button class="btn waves-effect waves-light" id="searchButton">Submit</button>
-        </div>
 
+                <div id="localEvents" class="row"></div>
+
+            </div> <!-- end of col s3-->
+
+
+        </div>
     </div>
 
-    <div id="resultDiv" class="row"></div>
-    <div id="localEvents" class="row"></div>
-
-    </div>
 
     <footer class="footer1">
-        <div class="container">
-            <div class="row">
-                <div class="col l6 s12">
-                    <h5 class="white-text">Footer Content</h5>
-                    <p class="grey-text text-lighten-4">Made By Nicholas DeRissio, Hugo Pierre-Lys and Damian Ramos</p>
-                </div>
-            </div>
-        </div>
-        <div class="footer-copyright">
-            <div class="container">
-                © 2014 Copyright Text
-                <a class="grey-text text-lighten-4 right" href="#!">More Links</a>
-            </div>
-        </div>
-    </footer>
-
 
     <script src="script.js"></script>
-    <script type="text/javascript">
-
-        // Here we are building the URL we need to query the database
-        var queryURL = "https://freegeoip.app/json/";
-
-        // Here we run our AJAX call to the GEO API
-        $.ajax({
-            url: queryURL,
-            method: "GET"
-        })
-            // We store all of the retrieved data inside of an object called "response"
-            .then(function (response) {
-
-                // Log the queryURL
-                console.log(queryURL);
-
-                // Log the resulting object
-                console.log(response);
-                console.log(response.city);
-                console.log(response.zip_code);
-
-            });
-       // $("#searchButton").on("click", function (event) {
-         //   event.preventDefault();
-           // var artist = $("#searchArtist").val();
-//var 
-   //     })-->
-    </script>
 </body>
-
 </html>
