@@ -24,6 +24,11 @@
     margin-top: 15px;
 }
 
+.sidePanel {
+    background-color: #2d545e;
+    color: #e1b382;
+}
+
 h1 {
     bottom: 50%;
     width: 100%;
