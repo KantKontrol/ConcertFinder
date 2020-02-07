@@ -5,54 +5,101 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="style.css">
+
     <title>Document</title>
 
+    <!--CSS Link for Materialize -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+    <!-- Our CSS -->
+    <link rel="stylesheet" href="style.css">
+
     <!-- Jquery Link Minified -->
-    <script src="http://code.jquery.com/jquery-3.4.1.min.js"
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
         integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 </head>
 
 <body>
-    <h1>Concert Global</h1>
 
-    <div class="row" id="searchdiv">
+    <!-- Header -->
+    <nav>
+        <div class="nav-wrapper mainColor">
+            <a href="index.html" class="brand-logo mainColor">Concert Global</a>
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+                <li><a href="#">Sass</a></li>
+                <li><a href="#">Components</a></li>
+                <li><a href="#">JavaScript</a></li>
+            </ul>
+        </div>
+    </nav>
 
+<<<<<<< HEAD
         <div class="col-s12-1">Search Concerts<input id="searchinput" class="search" type="text"></div>
         <div class="col-s6-2">City or Zip Code<input id="locationinput" class="Location" type="text"></div>
         <div class="col-s6-3">Date<input id="dateinput" class="search" type="text"></div>
         <div class="col-s12-4"><button id="class">Search</button></div>
+=======
+>>>>>>> d7c44ea0dfc56d72a684e4178079a4b067a22b9b
 
-    </div>
+    <!-- Main Content -->
 
+    <div class="container mainContent ">
+
+        <div class="row">
+
+            <div class="col s9 mainColor">
+                    <div id="searchdiv" class="row">
+                        <div class="row">
+                            <form class="col s12">
+                                <div class="row">
+                                    <div class="input-field col s6">
+                                        <input placeholder="Artists" id="searchArtist" type="text" class="validate">
+                                    </div>
+                                    <div class="input-field col s6">
+                                        <input placeholder="ZipCode" id="searchZip" type="text" class="validate">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="input-field col s12">
+                                        <input placeholder="Date" id="searchDate" type="text" class="validate">
+                                    </div>
+                                </div>
+
+                                <button class="btn waves-effect waves-light" id="searchButton">Submit</button>
+
+                            </form>
+                        </div>
+                    </div>
+
+<<<<<<< HEAD
     <div class="col-s12-3" id="resultdiv">
         Results
+=======
+        
+                <div id="resultDiv" class="row"></div>
+
+            </div> <!-- end of col s9-->
+
+            <div class="col s1">
+
+
+            </div>
+
+            <div class="col s2 sidePanel">
+
+
+                <div id="localEvents" class="row"></div>
+
+            </div> <!-- end of col s3-->
+
+
+        </div>
+>>>>>>> d7c44ea0dfc56d72a684e4178079a4b067a22b9b
     </div>
 
 
+    <footer class="footer1">
 
     <script src="script.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script type="text/javascript">
-
-        // Here we are building the URL we need to query the database
-        var queryURL = "https://get.geojs.io/";
-
-        // Here we run our AJAX call to the GEO API
-        $.ajax({
-            url: queryURL,
-            method: "GET"
-        })
-            // We store all of the retrieved data inside of an object called "response"
-            .then(function (response) {
-
-                // Log the queryURL
-                console.log(queryURL);
-
-                // Log the resulting object
-                console.log(response);
-            });
-    </script>
 </body>
-
 </html>
