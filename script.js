@@ -6,26 +6,27 @@
 
 getLocation();
 
-$("#searchButton").on("click", function (e) {
+$(document).on("click", "#searchButton",function (e) {
   e.preventDefault();
 
   let bandName = $("#searchArtist").val();
+  let date = $("#searchDate").val();
 
-  $("#resultDiv").empty();
 
-  refreshTab();
+  if(bandName == ""){
+    $("#tabRow").empty();
+    $("#tabRow").append($("<h5>").html("Please enter a Band Name!").css("color", "red"));
+  }
+  else{
 
-  
-  getBandsInTownEvents(bandName).then(function(){
+    refreshTab();
 
-    getTicketMasterEvents(bandName, false, "", "", -1);
-  });
-  
+    getBandsInTownEvents(bandName).then(function(){
 
-  
-  //displayData(dataBIT, dataTM);
-
-});
+      getTicketMasterEvents(bandName, false, "", "", -1);
+    });//end of .then
+  }//end of else
+});//end of click listener
 
 async function getBandsInTownEvents(bandName, date) {
 
@@ -207,10 +208,6 @@ function createTab(bandImage, venue, date, offerTickets){
         if(makeNewTab){
 
           let newTab = $("<li>").attr("class", "tab"); //create new one
-          //newTab.attr("id", date);
-          //newTab.css("display", "block");
-  
-          //<a href="#test1">Test 1</a>
     
           let newLink = $("<a>").attr("href", "#"+date);
           newLink.appendTo(newTab);
@@ -230,12 +227,6 @@ function createTab(bandImage, venue, date, offerTickets){
           console.log("add to existing div");
           $("#"+date).append(makeEventCard(bandImage, venue, date, offerTickets));
         }
-
-  
-        //below is div that holds card
-  
-        //<div id="test1" class="col s12">Test 1</div>
-  
 
 }
 
@@ -268,51 +259,7 @@ function makeEventCard(bandImage, venue, date, offerTickets) { //builds a materi
   return cardDiv;
 }
 
-/*function getDates(dataBIT, dataTM){
 
-  let dates = [];
-
-  for(let i=0;i < dataBIT.length;i++){
-
-    let checkDate = dataBIT[i].date;
-    console.log("added date");
-
-    if(dates.includes(checkDate) == true){
-      // if date exists dont do anything
-      
-    }
-    else{//add date to array
-      dates.push(checkDate);
-      
-    }
-  }
-
-  for(let i=0;i < dataTM.length;i++){
-    let checkDate = dataTM[i].date;
-
-    if(dates.includes(checkDate)){
-      // if date exists dont do anything
-    }
-    else{//add date to array
-      dates.push(checkDate);
-    }
-  }
-
-  console.log(dates);
-
-}*/
-
-/*function makeTable(dates){
-
-  
-
-}
-
-function displayData(dataBIT, dataTM){
- 
-  getDates(dataBIT, dataTM);
-
-}*/
 
 //=======================================================
 // Here we are building the URL we need to query the database
@@ -329,13 +276,5 @@ function getLocation() {
     // We are also calling/invoking the getTicketMasterEvents function to pass the location data for the sidebar
     .then(function (response) {
       getTicketMasterEvents("", true, response.city, response.region_code, 5);
-      // Log the queryURL
-      console.log(queryURL);
-
-      // Log the resulting object
-      console.log(response);
-      console.log(response.city);
-      console.log(response.zip_code);
-
     });
 }
