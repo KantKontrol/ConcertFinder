@@ -2,6 +2,12 @@ html, body {
     height: 100%
 }
 
+footer {
+    padding-left: 300px;
+
+
+}
+
 .row{
   padding: 10px;
 }
@@ -80,22 +86,17 @@ body{
     text-align: center;
 }
 
+.searchRow{
+    color: antiquewhite; 
+}
 
-header, main, footer {
-    padding-left: 300px;
-  }
-
-  @media only screen and (max-width : 992px) {
+@media only screen and (max-width : 992px) {
     header, main, footer  {
       padding-left: 0;
     }
     .sidePanel{
         display: none;
     }
-}
-
-.searchRow{
-    color: antiquewhite; 
 }
 
 

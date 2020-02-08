@@ -11,18 +11,16 @@ $(document).on("click", "#searchButton",function (e) {
 
   let bandName = $("#searchArtist").val();
 
-
   if(bandName == ""){
     $("#tabRow").empty();
     $("#tabRow").append($("<h5>").html("Please enter a Band Name!").css("color", "red"));
   }
   else{
 
-    refreshTab();
-
     getBandsInTownEvents(bandName).then(function(){
 
       getTicketMasterEvents(bandName, false, "", "", -1);
+
     });//end of .then
   }//end of else
 });//end of click listener
@@ -33,32 +31,33 @@ async function getBandsInTownEvents(bandName) {
 
   var queryURL = "https://rest.bandsintown.com/artists/" + bandName + "/events?app_id=" + app_id;
 
-
-  let data = [];
-
   $.ajax({
     url: queryURL,
     method: "GET"
-  }).then(function (response) {
+  }).done(function(response){
 
-    let bandImage = response[0].artist.image_url;
+      refreshTab();
 
-    for (let i = 0; i < response.length; i++) {
+      let bandImage = response[0].artist.image_url;
 
+      for (let i = 0; i < response.length; i++) {
+  
+  
+        let venue = response[i].venue.name + ", " + response[i].venue.city;
+        let rawDate = response[i].datetime;
+        let date = rawDate.substring(0, 10);
+        date = arrangeDate(date);
+        let offerTickets = response[i].url;
+  
+        makeTabs(bandImage, venue, date, offerTickets);
+      }
 
-      let venue = response[i].venue.name + ", " + response[i].venue.city;
-      let rawDate = response[i].datetime;
-      let date = rawDate.substring(0, 10);
-      date = arrangeDate(date);
-      let offerTickets = response[i].url;
+    }).fail(function(){
+      console.log("error!");
+      $("#tabRow").append($("<h6>").html("No events from Bands In Town").css("color", "red"));
+    });
+  }
 
-      data.push({bandImage, venue, date, offerTickets});
-
-      makeTabs(bandImage, venue, date, offerTickets);
-    }
-
-  });
-}
 
 //TicketMaster Key: KuVXm1LhnrpiuKMG26AxMNsWRbNXefMp
 
@@ -72,8 +71,6 @@ async function getBandsInTownEvents(bandName) {
 
   var queryURL = "";
 
-  let data = [];
-
   if (getLocation) {
     queryURL = "https://app.ticketmaster.com/discovery/v2/events.json?apikey=" + app_id + "&city=" + city + "&stateCode=" + state + "&radius=10&classificationName=music";
   }
@@ -86,36 +83,47 @@ async function getBandsInTownEvents(bandName) {
     method: "GET"
   }).then(function (response) {
 
-    var events = response._embedded.events;
+    if(response.page.totalElements > 0){ //if we got something
+        var events = response._embedded.events;
 
 
-    for (let i = 0; i < events.length; i++) {
+        for (let i = 0; i < events.length; i++) {
 
-      let forSideBarName = events[i].name;
+          let forSideBarName = events[i].name;
 
-      let bandImage = events[i].images[0].url;
+          let bandImage = events[i].images[0].url;
 
-      let venueName = events[i]._embedded.venues[0].name;
-      let venueCity = events[i]._embedded.venues[0].city.name;
+          let venueName = events[i]._embedded.venues[0].name;
+          let venueCity = events[i]._embedded.venues[0].city.name;
 
-      let venue = venueName + ", " + venueCity;
+          let venue = venueName + ", " + venueCity;
 
-      let date = events[i].dates.start.localDate;
-      date = arrangeDate(date);
+          let date = events[i].dates.start.localDate;
+          date = arrangeDate(date);
 
-      let offerTickets = events[i].url;
+          let offerTickets = events[i].url;
 
-      if (numberOfResults == -1) {
-        data.push({bandImage, venue, date, offerTickets});
-        makeTabs(bandImage, venue, date, offerTickets);
-      }
-      else if (numberOfResults > 0) {
-        displaySideEvent(forSideBarName, date, offerTickets, venue);
-        numberOfResults--;
-      }
+          if (numberOfResults == -1) {
+              makeTabs(bandImage, venue, date, offerTickets);
+          }
+          else if (numberOfResults > 0) {
+              displaySideEvent(forSideBarName, date, offerTickets, venue);
+              numberOfResults--;
+          }
+        }
     }
+    else{
 
+      if(numberOfResults == -1){
+        $("#tabRow").append($("<h6>").html("No events from TicketMaster").css("color", "red"));
+      }
+      else{
+        $(".sidePanel").append($("<h>").html("No events").css("color", "red"));
+      }
+
+    }
   });
+
 }
 
 function arrangeDate(date) {
