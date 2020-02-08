@@ -52,6 +52,11 @@ body{
     
 }
 
+.carousel-slider {
+    height: 500px !important;
+    overflow-y: scroll;
+}
+
 .container{
     flex: 1 0 auto;
 }

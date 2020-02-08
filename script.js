@@ -152,6 +152,8 @@ function makeTabs(bandImage, venue, date, offerTickets){
   createTab(bandImage, venue, date, offerTickets);
 
   $('.tabs').tabs(); //initializes tabs
+  $('.tabs').tabs({ 'swipeable': true });
+  $(".carousel-slider").attr("style", "height: max-content");
   
 
 }
