@@ -1,19 +1,9 @@
-/*.row {
-     position: center;
-    left: 0;
-    top: 25%;
-    text-align: center;
-    font-size: 18px;
-    margin: auto;
-    
-    width: 100%;
-<<<<<<< HEAD
-    color: cornsilk;
-    border: 1px solid black;
-    padding: 25px 50px;
-=======
-    
-} */
+.row{
+    padding: 10px;
+}
+
+
+
 html, body {
     height: 100%
 }
@@ -29,13 +19,17 @@ html, body {
 }
 
 .mainContent {
-    margin-top: 15px;
+    margin-top: 50px;
 }
 
 .sidePanel {
     background-color: #2d545e;
     color: #e1b382;
->>>>>>> d7c44ea0dfc56d72a684e4178079a4b067a22b9b
+    width: 800px; 
+    height: 500px; 
+    overflow-x: hidden; 
+    overflow-x: auto; 
+    text-align:justify;
 }
 
 h1 {
@@ -62,12 +56,13 @@ h1 {
 } */
 
 body{
-    background-image: url(./background-1.jpg);
-    background-repeat: repeat;
+    background-image: url(./navy_blue.png);
+    background-repeat: no repeat;
     background-size: cover;
     position: relative;
     display: flex;
     min-height: 100vh;
+    flex-direction: column;display: flex;
     flex-direction: column;
     
 }
@@ -84,13 +79,47 @@ body{
     height: 100px;
     display: block;
     flex-shrink: 0;
+    font-size: 25px;
+    color: antiquewhite;
+    padding-left: 15px;
+    padding-bottom: 15px;
     
-
 }
 
 .button{
     padding-left: 15px;
     padding-bottom: 15px;
 }
+
+.nav-wrapper {
+    text-align: center;
+}
+
+
+header, main, footer {
+    padding-left: 300px;
+  }
+
+  @media only screen and (max-width : 992px) {
+    header, main, footer  {
+      padding-left: 0;
+    }
+    .sidePanel{
+        display: none;
+    }
+}
+
+.searchRow{
+    color: antiquewhite; 
+}
+
+/* div.localRow {
+    width: 300px; 
+    height: 300px; 
+    overflow-x: hidden; 
+    overflow-x: auto; 
+    text-align:justify; 
+}
+
 
 
