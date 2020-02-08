@@ -13,6 +13,8 @@ $("#searchButton").on("click", function (e) {
 
   $("#resultDiv").empty();
 
+  refreshTab();
+
   
   getBandsInTownEvents(bandName).then(function(){
 
@@ -147,14 +149,25 @@ function displaySideEvent(bandName, date, offerTickets, venue) {
   $("#localEvents").append(cardDiv);
 }
 
+function refreshTab(){
+
+  $("#tabRow").empty();
+
+
+  let newCol = $("<div>").attr("class", "col s12");
+  newCol.appendTo($("#tabRow"));
+
+  let tabs = $("<ul>").attr({"id": "dateTabs", "class": "tabs"});
+  tabs.appendTo($("#tabRow"));
+
+}
+
 function makeTabs(bandImage, venue, date, offerTickets){
 
   createTab(bandImage, venue, date, offerTickets);
 
   $('.tabs').tabs(); //initializes tabs
   $('.tabs').tabs({ 'swipeable': true });
-  $(".carousel-slider").attr("style", "height: max-content");
-  
 
 }
 
