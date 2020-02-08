@@ -17,11 +17,7 @@ $(document).on("click", "#searchButton",function (e) {
   }
   else{
 
-    getBandsInTownEvents(bandName).then(function(){
-
-      getTicketMasterEvents(bandName, false, "", "", -1);
-
-    });//end of .then
+    getBandsInTownEvents(bandName);
   }//end of else
 });//end of click listener
 
@@ -38,6 +34,8 @@ async function getBandsInTownEvents(bandName) {
 
       refreshTab();
 
+      console.log("got bands in town");
+
       let bandImage = response[0].artist.image_url;
 
       for (let i = 0; i < response.length; i++) {
@@ -51,6 +49,8 @@ async function getBandsInTownEvents(bandName) {
   
         makeTabs(bandImage, venue, date, offerTickets);
       }
+
+      getTicketMasterEvents(bandName, false, "", "", -1);
 
     }).fail(function(){
       console.log("error!");
@@ -84,6 +84,8 @@ async function getBandsInTownEvents(bandName) {
   }).then(function (response) {
 
     if(response.page.totalElements > 0){ //if we got something
+
+      console.log("got ticketmaster");
         var events = response._embedded.events;
 
 
@@ -189,25 +191,18 @@ function createTab(bandImage, venue, date, offerTickets){
 
         let makeNewTab = false;
 
-        console.log(currentTabs);
-
         if(currentTabs.length > 0){
           for(var i=0;i < currentTabs.length;i++){
 
             let tabDate = $(currentTabs[i])[0].innerText;
 
-            console.log({tabDate, date});
-
             if(date == tabDate){
               makeNewTab = false;
-              console.log("make new tab!");
               break;
             }
             else{
               makeNewTab = true;
-              
-            }
-            
+            } 
           }
         }
         else{
@@ -267,8 +262,6 @@ function makeEventCard(bandImage, venue, date, offerTickets) { //builds a materi
 
   return cardDiv;
 }
-
-
 
 //=======================================================
 // Here we are building the URL we need to query the database

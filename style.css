@@ -4,8 +4,6 @@ html, body {
 
 footer {
     padding-left: 300px;
-
-
 }
 
 .row{
@@ -75,6 +73,7 @@ body{
     color: antiquewhite;
     padding-left: 15px;
     padding-bottom: 15px;
+    text-align: center;
 }
 
 .button{
