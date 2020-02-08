@@ -10,7 +10,6 @@ $(document).on("click", "#searchButton",function (e) {
   e.preventDefault();
 
   let bandName = $("#searchArtist").val();
-  let date = $("#searchDate").val();
 
 
   if(bandName == ""){
@@ -28,10 +27,12 @@ $(document).on("click", "#searchButton",function (e) {
   }//end of else
 });//end of click listener
 
-async function getBandsInTownEvents(bandName, date) {
+async function getBandsInTownEvents(bandName) {
 
   var app_id = "0e0044c7d7a73f73811a78506b57e4ef";
+
   var queryURL = "https://rest.bandsintown.com/artists/" + bandName + "/events?app_id=" + app_id;
+
 
   let data = [];
 
