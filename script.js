@@ -6,7 +6,6 @@
 
 getLocation();
 
-
 $("#searchButton").on("click", function (e) {
   e.preventDefault();
 
@@ -14,17 +13,21 @@ $("#searchButton").on("click", function (e) {
 
   $("#resultDiv").empty();
 
-
-
+  
   getBandsInTownEvents(bandName);
-  getTicketMasterEvents(bandName, false, "", "", -1);
+  //getTicketMasterEvents(bandName, false, "", "", -1);
+
+  
+  //displayData(dataBIT, dataTM);
 
 });
 
-function getBandsInTownEvents(bandName, date) {
+async function getBandsInTownEvents(bandName, date) {
 
   var app_id = "0e0044c7d7a73f73811a78506b57e4ef";
   var queryURL = "https://rest.bandsintown.com/artists/" + bandName + "/events?app_id=" + app_id;
+
+  let data = [];
 
   $.ajax({
     url: queryURL,
@@ -42,7 +45,9 @@ function getBandsInTownEvents(bandName, date) {
       date = arrangeDate(date);
       let offerTickets = response[i].url;
 
-      displayEvent(bandImage, venue, date, offerTickets);
+      data.push({bandImage, venue, date, offerTickets});
+
+      makeTabs(bandImage, venue, date, offerTickets);
     }
 
   });
@@ -53,12 +58,14 @@ function getBandsInTownEvents(bandName, date) {
 //Ticketmaster URL: https://app.ticketmaster.com/discovery/v2/events.json?apikey=  keyword=artistname
 
 
-function getTicketMasterEvents(bandName, getLocation, city, state, numberOfResults) { //number of results -1 is no limit
+async function getTicketMasterEvents(bandName, getLocation, city, state, numberOfResults) { //number of results -1 is no limit
 
 
   var app_id = "KuVXm1LhnrpiuKMG26AxMNsWRbNXefMp";
 
   var queryURL = "";
+
+  let data = [];
 
   if (getLocation) {
     queryURL = "https://app.ticketmaster.com/discovery/v2/events.json?apikey=" + app_id + "&city=" + city + "&stateCode=" + state + "&radius=10&classificationName=music";
@@ -71,11 +78,6 @@ function getTicketMasterEvents(bandName, getLocation, city, state, numberOfResul
     url: queryURL,
     method: "GET"
   }).then(function (response) {
-
-    console.log(response);
-
-    console.log(response);
-
 
     var events = response._embedded.events;
 
@@ -97,14 +99,13 @@ function getTicketMasterEvents(bandName, getLocation, city, state, numberOfResul
       let offerTickets = events[i].url;
 
       if (numberOfResults == -1) {
-        displayEvent(bandImage, venue, date, offerTickets);
+        data.push({bandImage, venue, date, offerTickets});
+        makeTabs(bandImage, venue, date, offerTickets);
       }
       else if (numberOfResults > 0) {
         displaySideEvent(forSideBarName, date, offerTickets, venue);
         numberOfResults--;
       }
-
-
     }
 
   });
@@ -119,7 +120,6 @@ function arrangeDate(date) {
 }
 
 function displaySideEvent(bandName, date, offerTickets, venue) {
-
 
   let cardDiv = $("<div>").attr("class", "card");
   cardDiv.css({ "margin": "10px", "width": "150px", "float": "right" });
@@ -139,15 +139,51 @@ function displaySideEvent(bandName, date, offerTickets, venue) {
   let cardAction = $("<div>").attr("class", "card-action");
   cardAction.html($("<a>").attr("href", offerTickets).html("Tickets"));
 
-
   cardContent.append(cardAction);
-
 
   $("#localEvents").append(cardDiv);
 }
 
+function makeTabs(bandImage, venue, date, offerTickets){
 
-function displayEvent(bandImage, venue, date, offerTickets) { //builds a materialze card and displays content
+  let currentTabs = $(".tab");
+
+  createTab(bandImage, venue, date, offerTickets);
+
+  $('.tabs').tabs(); //initializes tabs
+  console.log("make first element");
+
+}
+
+function createTab(bandImage, venue, date, offerTickets){
+        //<li class="tab col s3">
+
+        let newTab = $("<li>").attr("class", "tab"); //create new one
+        //newTab.attr("id", date);
+        //newTab.css("display", "block");
+
+        //<a href="#test1">Test 1</a>
+  
+        let newLink = $("<a>").attr("href", "#"+date);
+        newLink.appendTo(newTab);
+        newLink.html(date);
+  
+        $("#dateTabs").append(newTab);
+  
+        //below is div that holds card
+  
+        //<div id="test1" class="col s12">Test 1</div>
+  
+        let contentDiv = $("<div>").attr("class", "col s12");
+        contentDiv.attr("id", date);
+  
+        contentDiv.append(makeEventCard(bandImage, venue, date, offerTickets));
+  
+        $("#tabRow").append(contentDiv);
+}
+
+
+function makeEventCard(bandImage, venue, date, offerTickets) { //builds a materialze card and displays content
 
   let cardDiv = $("<div>").attr("class", "card");
   cardDiv.css({ "margin": "10px", "width": "max-content", "float": "left" });
@@ -172,8 +208,54 @@ function displayEvent(bandImage, venue, date, offerTickets) { //builds a materia
   cardAction.html($("<a>").attr("href", offerTickets).html("Tickets"));
   cardDiv.append(cardAction);
 
-  $("#resultDiv").append(cardDiv);
+  return cardDiv;
 }
+
+/*function getDates(dataBIT, dataTM){
+
+  let dates = [];
+
+  for(let i=0;i < dataBIT.length;i++){
+
+    let checkDate = dataBIT[i].date;
+    console.log("added date");
+
+    if(dates.includes(checkDate) == true){
+      // if date exists dont do anything
+      
+    }
+    else{//add date to array
+      dates.push(checkDate);
+      
+    }
+  }
+
+  for(let i=0;i < dataTM.length;i++){
+    let checkDate = dataTM[i].date;
+
+    if(dates.includes(checkDate)){
+      // if date exists dont do anything
+    }
+    else{//add date to array
+      dates.push(checkDate);
+    }
+  }
+
+  console.log(dates);
+
+}*/
+
+/*function makeTable(dates){
+
+  
+
+}
+
+function displayData(dataBIT, dataTM){
+ 
+  getDates(dataBIT, dataTM);
+
+}*/
 
 //=======================================================
 // Here we are building the URL we need to query the database
