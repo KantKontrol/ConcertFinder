@@ -4,8 +4,8 @@
 
 //https://rest.bandsintown.com/artists/Dream%20Theater?app_id=0e0044c7d7a73f73811a78506b57e4ef
 
+getLocation();
 
-getTicketMasterEvents("", true, "clifton", "NJ", 5);
 
 $("#searchButton").on("click", function (e) {
   e.preventDefault();
@@ -15,7 +15,7 @@ $("#searchButton").on("click", function (e) {
   $("#resultDiv").empty();
 
 
-  getLocation();
+
   getBandsInTownEvents(bandName);
   getTicketMasterEvents(bandName, false, "", "", -1);
 
@@ -100,7 +100,7 @@ function getTicketMasterEvents(bandName, getLocation, city, state, numberOfResul
         displayEvent(bandImage, venue, date, offerTickets);
       }
       else if (numberOfResults > 0) {
-        displaySideEvent(forSideBarName, date, offerTickets);
+        displaySideEvent(forSideBarName, date, offerTickets, venue);
         numberOfResults--;
       }
 
@@ -118,19 +118,22 @@ function arrangeDate(date) {
   return newDate;
 }
 
-function displaySideEvent(bandName, date, offerTickets) {
+function displaySideEvent(bandName, date, offerTickets, venue) {
 
 
   let cardDiv = $("<div>").attr("class", "card");
+  cardDiv.css({ "margin": "10px", "width": "150px", "float": "right" });
 
   let cardTitle = $("<span>").attr("class", "card-title");
+  cardTitle.css({ "white-space": "nowrap", "overflow": "hidden", "text-overflow": "ellipsis" });
   cardTitle.html(bandName);
   cardDiv.append(cardTitle);
 
   let cardContent = $("<div>").attr("class", "card-content");
   cardDiv.append(cardContent);
 
-  let dateHolder = $("<p>").html("Date: " + date).attr("class", "dateColor");
+  let dateHolder = $("<p>").html("Date: " + date + " at " + venue).attr("class", "dateColor");
+  dateHolder.css({ "color": "#d83c0c", "font-size": "medium" })
   cardContent.append(dateHolder);
 
   let cardAction = $("<div>").attr("class", "card-action");
@@ -184,8 +187,9 @@ function getLocation() {
     method: "GET"
   })
     // We store all of the retrieved data inside of an object called "response"
+    // We are also calling/invoking the getTicketMasterEvents function to pass the location data for the sidebar
     .then(function (response) {
-
+      getTicketMasterEvents("", true, response.city, response.region_code, 5);
       // Log the queryURL
       console.log(queryURL);
 

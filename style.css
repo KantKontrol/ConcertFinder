@@ -1,19 +1,4 @@
-/*.row {
-     position: center;
-    left: 0;
-    top: 25%;
-    text-align: center;
-    font-size: 18px;
-    margin: auto;
-    
-    width: 100%;
-<<<<<<< HEAD
-    color: cornsilk;
-    border: 1px solid black;
-    padding: 25px 50px;
-=======
-    
-} */
+
 html, body {
     height: 100%
 }
@@ -33,9 +18,16 @@ html, body {
 }
 
 .sidePanel {
-    background-color: #2d545e;
-    color: #e1b382;
->>>>>>> d7c44ea0dfc56d72a684e4178079a4b067a22b9b
+    background-color: #238199;
+    color: #0b0885;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    
+    text-overflow: ellipsis;
+    width: 800px;
+    height: 500px;
+    overflow-x: hidden;
+    overflow-x: auto;
+    text-align: justify;
 }
 
 h1 {
@@ -47,19 +39,6 @@ h1 {
     color: cornsilk;
     
 }
-
-/*.col-s12{
-     position: absolute;
-    left: 0;
-    top: 50%;
-    text-align: center;
-    font-size: 18px;
-    margin: auto;
-    background-color: blue;
-    width: 100%;
-    color: cornsilk;
-
-} */
 
 body{
     background-image: url(./background-1.jpg);
