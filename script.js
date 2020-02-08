@@ -158,7 +158,7 @@ function makeTabs(bandImage, venue, date, offerTickets){
 function createTab(bandImage, venue, date, offerTickets){
         //<li class="tab col s3">
 
-        let newTab = $("<li>").attr("class", "tab col s3"); //create new one
+        let newTab = $("<li>").attr("class", "tab"); //create new one
         //newTab.attr("id", date);
         //newTab.css("display", "block");
 
