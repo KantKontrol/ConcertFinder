@@ -1,12 +1,17 @@
 /*.row {
      position: center;
     left: 0;
-    top: 50%;
+    top: 25%;
     text-align: center;
     font-size: 18px;
     margin: auto;
     
     width: 100%;
+<<<<<<< HEAD
+    color: cornsilk;
+    border: 1px solid black;
+    padding: 25px 50px;
+=======
     
 } */
 html, body {
@@ -30,6 +35,7 @@ html, body {
 .sidePanel {
     background-color: #2d545e;
     color: #e1b382;
+>>>>>>> d7c44ea0dfc56d72a684e4178079a4b067a22b9b
 }
 
 h1 {
