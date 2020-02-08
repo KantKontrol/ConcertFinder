@@ -32,10 +32,10 @@ async function getBandsInTownEvents(bandName) {
     method: "GET"
   }).done(function(response){
 
+    if(response.length > 0){
+
       refreshTab();
-
-      console.log("got bands in town");
-
+    
       let bandImage = response[0].artist.image_url;
 
       for (let i = 0; i < response.length; i++) {
@@ -51,10 +51,16 @@ async function getBandsInTownEvents(bandName) {
       }
 
       getTicketMasterEvents(bandName, false, "", "", -1);
+    }
+    else{
+      refreshTab();
+      getTicketMasterEvents(bandName, false, "", "", -1);
+    }
 
     }).fail(function(){
       console.log("error!");
       $("#tabRow").append($("<h6>").html("No events from Bands In Town").css("color", "red"));
+      getTicketMasterEvents(bandName, false, "", "", -1);
     });
   }
 
