@@ -147,13 +147,39 @@ function displaySideEvent(bandName, date, offerTickets) {
   $("#localEvents").append(cardDiv);
 }
 
-function makeTabs(){
+function makeTabs(bandImage, venue, date, offerTickets){
 
-  
+  let currentTabs = $(".tab");
+
+  //<li class="tab col s3">
+
+  let newTab = $("<li>").attr("class", "tab col s3");
+
+  //<a href="#test1">Test 1</a>
+
+  let newLink = $("<a>").attr("href", "."+date);
+  newLink.appendTo(newTab);
+
+  newTab.appendTo($("#dateTabs"));
+ 
+  //below is div that holds card
+
+  //<div id="test1" class="col s12">Test 1</div>
+
+  let contentDiv = $("<div>").attr("class", "col s12 "+date);
+
+
+  contentDiv.append(makeEventCard(bandImage, venue, date, offerTickets));
+
+  contentDiv.appendTo($("#tabRow"));
+
+
+
+
 }
 
 
-function displayEvent(bandImage, venue, date, offerTickets) { //builds a materialze card and displays content
+function makeEventCard(bandImage, venue, date, offerTickets) { //builds a materialze card and displays content
 
   let cardDiv = $("<div>").attr("class", "card");
   cardDiv.css({ "margin": "10px", "width": "max-content", "float": "left" });
@@ -178,7 +204,7 @@ function displayEvent(bandImage, venue, date, offerTickets) { //builds a materia
   cardAction.html($("<a>").attr("href", offerTickets).html("Tickets"));
   cardDiv.append(cardAction);
 
-  $("#resultDiv").append(cardDiv);
+  return cardDiv;
 }
 
 /*function getDates(dataBIT, dataTM){
