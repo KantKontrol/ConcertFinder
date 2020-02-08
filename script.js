@@ -17,8 +17,8 @@ $("#searchButton").on("click", function (e) {
 
 
   getLocation();
-  let dataBIT = getBandsInTownEvents(bandName);
-  let dataTM = getTicketMasterEvents(bandName, false, "", "", -1);
+  getBandsInTownEvents(bandName);
+  //getTicketMasterEvents(bandName, false, "", "", -1);
 
   
   //displayData(dataBIT, dataTM);
@@ -148,30 +148,38 @@ function makeTabs(bandImage, venue, date, offerTickets){
 
   let currentTabs = $(".tab");
 
-  //<li class="tab col s3">
+  createTab(bandImage, venue, date, offerTickets);
 
-  let newTab = $("<li>").attr("class", "tab col s3");
+  $('.tabs').tabs(); //initializes tabs
+  console.log("make first element");
 
-  //<a href="#test1">Test 1</a>
+}
 
-  let newLink = $("<a>").attr("href", "."+date);
-  newLink.appendTo(newTab);
+function createTab(bandImage, venue, date, offerTickets){
+        //<li class="tab col s3">
 
-  $("#dateTabs").append(newTab);
- 
-  //below is div that holds card
+        let newTab = $("<li>").attr("class", "tab col s3"); //create new one
+        //newTab.attr("id", date);
+        //newTab.css("display", "block");
 
-  //<div id="test1" class="col s12">Test 1</div>
-
-  let contentDiv = $("<div>").attr("class", "col s12 "+date);
-
-
-  contentDiv.append(makeEventCard(bandImage, venue, date, offerTickets));
-
-  $("#tabRow").append(contentDiv);
-
-  $('.tabs').tabs();
-
+        //<a href="#test1">Test 1</a>
+  
+        let newLink = $("<a>").attr("href", "#"+date);
+        newLink.appendTo(newTab);
+        newLink.html(date);
+  
+        $("#dateTabs").append(newTab);
+  
+        //below is div that holds card
+  
+        //<div id="test1" class="col s12">Test 1</div>
+  
+        let contentDiv = $("<div>").attr("class", "col s12");
+        contentDiv.attr("id", date);
+  
+        contentDiv.append(makeEventCard(bandImage, venue, date, offerTickets));
+  
+        $("#tabRow").append(contentDiv);
 }
 
 
