@@ -146,29 +146,54 @@ function displaySideEvent(bandName, date, offerTickets, venue) {
 
 function makeTabs(bandImage, venue, date, offerTickets){
 
-  let currentTabs = $(".tab");
-
   createTab(bandImage, venue, date, offerTickets);
 
   $('.tabs').tabs(); //initializes tabs
-  console.log("make first element");
+  
 
 }
 
 function createTab(bandImage, venue, date, offerTickets){
+
+  
         //<li class="tab col s3">
+        let currentTabs = $(".tab");
 
-        let newTab = $("<li>").attr("class", "tab"); //create new one
-        //newTab.attr("id", date);
-        //newTab.css("display", "block");
+        let makeNewTab = false;
 
-        //<a href="#test1">Test 1</a>
+        if(currentTabs.length > 0){
+          for(var i=0;i < currentTabs.length;i++){
+
+            let testDate = $(currentTabs[i])[0].innerText;
+
+            console.log({testDate, date});
+
+            if(date != testDate){
+              makeNewTab = true;
+              console.log("make tab!");
+            }
+          }
+        }
+        else{
+          makeNewTab = true;
+        }
+
+        if(makeNewTab){
+
+          let newTab = $("<li>").attr("class", "tab"); //create new one
+          //newTab.attr("id", date);
+          //newTab.css("display", "block");
   
-        let newLink = $("<a>").attr("href", "#"+date);
-        newLink.appendTo(newTab);
-        newLink.html(date);
-  
-        $("#dateTabs").append(newTab);
+          //<a href="#test1">Test 1</a>
+    
+          let newLink = $("<a>").attr("href", "#"+date);
+          newLink.appendTo(newTab);
+          newLink.html(date);
+    
+          $("#dateTabs").append(newTab);
+
+        }
+
   
         //below is div that holds card
   
