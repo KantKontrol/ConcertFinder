@@ -4,9 +4,6 @@
 
 //https://rest.bandsintown.com/artists/Dream%20Theater?app_id=0e0044c7d7a73f73811a78506b57e4ef
 
-$(document).ready(function(){
-  $('.tabs').tabs();
-});
 
 
 getTicketMasterEvents("", true, "clifton", "NJ", 5);
@@ -24,7 +21,7 @@ $("#searchButton").on("click", function (e) {
   let dataTM = getTicketMasterEvents(bandName, false, "", "", -1);
 
   
-  displayData(dataBIT, dataTM);
+  //displayData(dataBIT, dataTM);
 
 });
 
@@ -53,7 +50,7 @@ async function getBandsInTownEvents(bandName, date) {
 
       data.push({bandImage, venue, date, offerTickets});
 
-      displayEvent(bandImage, venue, date, offerTickets);
+      makeTabs(bandImage, venue, date, offerTickets);
     }
 
   });
@@ -106,7 +103,7 @@ async function getTicketMasterEvents(bandName, getLocation, city, state, numberO
 
       if (numberOfResults == -1) {
         data.push({bandImage, venue, date, offerTickets});
-        displayEvent(bandImage, venue, date, offerTickets);
+        makeTabs(bandImage, venue, date, offerTickets);
       }
       else if (numberOfResults > 0) {
         displaySideEvent(forSideBarName, date, offerTickets);
@@ -160,7 +157,7 @@ function makeTabs(bandImage, venue, date, offerTickets){
   let newLink = $("<a>").attr("href", "."+date);
   newLink.appendTo(newTab);
 
-  newTab.appendTo($("#dateTabs"));
+  $("#dateTabs").append(newTab);
  
   //below is div that holds card
 
@@ -171,10 +168,9 @@ function makeTabs(bandImage, venue, date, offerTickets){
 
   contentDiv.append(makeEventCard(bandImage, venue, date, offerTickets));
 
-  contentDiv.appendTo($("#tabRow"));
+  $("#tabRow").append(contentDiv);
 
-
-
+  $('.tabs').tabs();
 
 }
 
