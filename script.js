@@ -14,8 +14,11 @@ $("#searchButton").on("click", function (e) {
   $("#resultDiv").empty();
 
   
-  getBandsInTownEvents(bandName);
-  //getTicketMasterEvents(bandName, false, "", "", -1);
+  getBandsInTownEvents(bandName).then(function(){
+
+    getTicketMasterEvents(bandName, false, "", "", -1);
+  });
+  
 
   
   //displayData(dataBIT, dataTM);
@@ -58,7 +61,7 @@ async function getBandsInTownEvents(bandName, date) {
 //Ticketmaster URL: https://app.ticketmaster.com/discovery/v2/events.json?apikey=  keyword=artistname
 
 
-async function getTicketMasterEvents(bandName, getLocation, city, state, numberOfResults) { //number of results -1 is no limit
+ function getTicketMasterEvents(bandName, getLocation, city, state, numberOfResults) { //number of results -1 is no limit
 
 
   var app_id = "KuVXm1LhnrpiuKMG26AxMNsWRbNXefMp";
@@ -161,17 +164,25 @@ function createTab(bandImage, venue, date, offerTickets){
 
         let makeNewTab = false;
 
+        console.log(currentTabs);
+
         if(currentTabs.length > 0){
           for(var i=0;i < currentTabs.length;i++){
 
-            let testDate = $(currentTabs[i])[0].innerText;
+            let tabDate = $(currentTabs[i])[0].innerText;
 
-            console.log({testDate, date});
+            console.log({tabDate, date});
 
-            if(date != testDate){
-              makeNewTab = true;
-              console.log("make tab!");
+            if(date == tabDate){
+              makeNewTab = false;
+              console.log("make new tab!");
+              break;
             }
+            else{
+              makeNewTab = true;
+              
+            }
+            
           }
         }
         else{
@@ -192,6 +203,17 @@ function createTab(bandImage, venue, date, offerTickets){
     
           $("#dateTabs").append(newTab);
 
+          let contentDiv = $("<div>").attr("class", "col s12");
+          contentDiv.attr("id", date);
+    
+          contentDiv.append(makeEventCard(bandImage, venue, date, offerTickets));
+    
+          $("#tabRow").append(contentDiv);
+
+        }
+        else{
+          console.log("add to existing div");
+          $("#"+date).append(makeEventCard(bandImage, venue, date, offerTickets));
         }
 
   
@@ -199,12 +221,7 @@ function createTab(bandImage, venue, date, offerTickets){
   
         //<div id="test1" class="col s12">Test 1</div>
   
-        let contentDiv = $("<div>").attr("class", "col s12");
-        contentDiv.attr("id", date);
-  
-        contentDiv.append(makeEventCard(bandImage, venue, date, offerTickets));
-  
-        $("#tabRow").append(contentDiv);
+
 }
 
 
