@@ -16,6 +16,7 @@ $(document).on("click", "#searchButton",function (e) {
     $("#tabRow").append($("<h5>").html("Please enter a Band Name!").css("color", "red"));
   }
   else{
+    refreshTab();
 
     getBandsInTownEvents(bandName);
   }//end of else
@@ -33,13 +34,10 @@ async function getBandsInTownEvents(bandName) {
   }).done(function(response){
 
     if(response.length > 0){
-
-      refreshTab();
     
       let bandImage = response[0].artist.image_url;
 
       for (let i = 0; i < response.length; i++) {
-  
   
         let venue = response[i].venue.name + ", " + response[i].venue.city;
         let rawDate = response[i].datetime;
@@ -53,7 +51,6 @@ async function getBandsInTownEvents(bandName) {
       getTicketMasterEvents(bandName, false, "", "", -1);
     }
     else{
-      refreshTab();
       getTicketMasterEvents(bandName, false, "", "", -1);
     }
 
