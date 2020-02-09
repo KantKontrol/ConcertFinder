@@ -11,13 +11,17 @@ html, body {
     color: #e1b382;
 }
 
+.border{
+    border: 2px solid #e1b382;
+}
+
 .dateColor {
     color: #e1b382;
     font-size: large;
 }
 
 .mainContent {
-    margin-top: 50px;
+    margin-top: 50px
 }
 
 .sidePanel {
@@ -40,6 +44,10 @@ h1 {
     
 }
 
+nav {
+    border-bottom: 2px solid #e1b382;
+}
+
 body{
     background-image: url(./navy_blue.png);
     background-repeat: no repeat;
@@ -52,6 +60,11 @@ body{
     
 }
 
+.carousel-slider {
+    height: 500px !important;
+    overflow-y: scroll;
+}
+
 .container{
     flex: 1 0 auto;
 }
@@ -61,9 +74,10 @@ body{
     display: block;
     flex-shrink: 0;
     font-size: 25px;
-    color: antiquewhite;
     padding-left: 15px;
     padding-bottom: 15px;
+    text-align: center;
+    border-top: 2px solid #e1b382;
 }
 
 .button{
@@ -71,26 +85,39 @@ body{
     padding-bottom: 15px;
 }
 
+a{
+    color: #e1b382 !important;
+}
+
+/* w3 schools */
+input::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: #e1b382;
+    opacity: 1; /* Firefox */
+}
+  
+input:-ms-input-placeholder { /* Internet Explorer 10-11 */
+    color: #e1b382;
+  }
+  
+input::-ms-input-placeholder { /* Microsoft Edge */
+    color: #e1b382;
+}
+
 .nav-wrapper {
     text-align: center;
 }
 
+.searchRow{
+    color: antiquewhite; 
+}
 
-header, main, footer {
-    padding-left: 300px;
-  }
-
-  @media only screen and (max-width : 992px) {
+@media only screen and (max-width : 992px) {
     header, main, footer  {
       padding-left: 0;
     }
     .sidePanel{
         display: none;
     }
-}
-
-.searchRow{
-    color: antiquewhite; 
 }
 
 

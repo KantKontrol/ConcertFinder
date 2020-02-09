@@ -6,66 +6,73 @@
 
 getLocation();
 
-$("#searchButton").on("click", function (e) {
+$(document).on("click", "#searchButton",function (e) {
   e.preventDefault();
 
   let bandName = $("#searchArtist").val();
 
-  $("#resultDiv").empty();
+  if(bandName == ""){
+    $("#tabRow").empty();
+    $("#tabRow").append($("<h5>").html("Please enter a Band Name!").css("color", "red"));
+  }
+  else{
+    refreshTab();
 
-  
-  getBandsInTownEvents(bandName);
-  //getTicketMasterEvents(bandName, false, "", "", -1);
+    getBandsInTownEvents(bandName);
+  }//end of else
+});//end of click listener
 
-  
-  //displayData(dataBIT, dataTM);
-
-});
-
-async function getBandsInTownEvents(bandName, date) {
+async function getBandsInTownEvents(bandName) {
 
   var app_id = "0e0044c7d7a73f73811a78506b57e4ef";
-  var queryURL = "https://rest.bandsintown.com/artists/" + bandName + "/events?app_id=" + app_id;
 
-  let data = [];
+  var queryURL = "https://rest.bandsintown.com/artists/" + bandName + "/events?app_id=" + app_id;
 
   $.ajax({
     url: queryURL,
     method: "GET"
-  }).then(function (response) {
+  }).done(function(response){
 
-    let bandImage = response[0].artist.image_url;
+    if(response.length > 0){
+    
+      let bandImage = response[0].artist.image_url;
 
-    for (let i = 0; i < response.length; i++) {
+      for (let i = 0; i < response.length; i++) {
+  
+        let venue = response[i].venue.name + ", " + response[i].venue.city;
+        let rawDate = response[i].datetime;
+        let date = rawDate.substring(0, 10);
+        date = arrangeDate(date);
+        let offerTickets = response[i].url;
+  
+        makeTabs(bandImage, venue, date, offerTickets);
+      }
 
-
-      let venue = response[i].venue.name + ", " + response[i].venue.city;
-      let rawDate = response[i].datetime;
-      let date = rawDate.substring(0, 10);
-      date = arrangeDate(date);
-      let offerTickets = response[i].url;
-
-      data.push({bandImage, venue, date, offerTickets});
-
-      makeTabs(bandImage, venue, date, offerTickets);
+      getTicketMasterEvents(bandName, false, "", "", -1);
+    }
+    else{
+      getTicketMasterEvents(bandName, false, "", "", -1);
     }
 
-  });
-}
+    }).fail(function(){
+      console.log("error!");
+      $("#tabRow").append($("<h6>").html("No events from Bands In Town").css("color", "red"));
+      getTicketMasterEvents(bandName, false, "", "", -1);
+    });
+  }
+
 
 //TicketMaster Key: KuVXm1LhnrpiuKMG26AxMNsWRbNXefMp
 
 //Ticketmaster URL: https://app.ticketmaster.com/discovery/v2/events.json?apikey=  keyword=artistname
 
 
-async function getTicketMasterEvents(bandName, getLocation, city, state, numberOfResults) { //number of results -1 is no limit
+ function getTicketMasterEvents(bandName, getLocation, city, state, numberOfResults) { //number of results -1 is no limit
 
 
   var app_id = "KuVXm1LhnrpiuKMG26AxMNsWRbNXefMp";
 
   var queryURL = "";
-
-  let data = [];
 
   if (getLocation) {
     queryURL = "https://app.ticketmaster.com/discovery/v2/events.json?apikey=" + app_id + "&city=" + city + "&stateCode=" + state + "&radius=10&classificationName=music";
@@ -79,36 +86,49 @@ async function getTicketMasterEvents(bandName, getLocation, city, state, numberO
     method: "GET"
   }).then(function (response) {
 
-    var events = response._embedded.events;
+    if(response.page.totalElements > 0){ //if we got something
+
+      console.log("got ticketmaster");
+        var events = response._embedded.events;
 
 
-    for (let i = 0; i < events.length; i++) {
+        for (let i = 0; i < events.length; i++) {
 
-      let forSideBarName = events[i].name;
+          let forSideBarName = events[i].name;
 
-      let bandImage = events[i].images[0].url;
+          let bandImage = events[i].images[0].url;
 
-      let venueName = events[i]._embedded.venues[0].name;
-      let venueCity = events[i]._embedded.venues[0].city.name;
+          let venueName = events[i]._embedded.venues[0].name;
+          let venueCity = events[i]._embedded.venues[0].city.name;
 
-      let venue = venueName + ", " + venueCity;
+          let venue = venueName + ", " + venueCity;
 
-      let date = events[i].dates.start.localDate;
-      date = arrangeDate(date);
+          let date = events[i].dates.start.localDate;
+          date = arrangeDate(date);
 
-      let offerTickets = events[i].url;
+          let offerTickets = events[i].url;
 
-      if (numberOfResults == -1) {
-        data.push({bandImage, venue, date, offerTickets});
-        makeTabs(bandImage, venue, date, offerTickets);
-      }
-      else if (numberOfResults > 0) {
-        displaySideEvent(forSideBarName, date, offerTickets, venue);
-        numberOfResults--;
-      }
+          if (numberOfResults == -1) {
+              makeTabs(bandImage, venue, date, offerTickets);
+          }
+          else if (numberOfResults > 0) {
+              displaySideEvent(forSideBarName, date, offerTickets, venue);
+              numberOfResults--;
+          }
+        }
     }
+    else{
 
+      if(numberOfResults == -1){
+        $("#tabRow").append($("<h6>").html("No events from TicketMaster").css("color", "red"));
+      }
+      else{
+        $(".sidePanel").append($("<h>").html("No events").css("color", "red"));
+      }
+
+    }
   });
+
 }
 
 function arrangeDate(date) {
@@ -144,42 +164,77 @@ function displaySideEvent(bandName, date, offerTickets, venue) {
   $("#localEvents").append(cardDiv);
 }
 
-function makeTabs(bandImage, venue, date, offerTickets){
+function refreshTab(){
 
-  let currentTabs = $(".tab");
+  $("#tabRow").empty();
+
+
+  let newCol = $("<div>").attr("class", "col s12");
+  newCol.appendTo($("#tabRow"));
+
+  let tabs = $("<ul>").attr({"id": "dateTabs", "class": "tabs"});
+  tabs.appendTo($("#tabRow"));
+
+}
+
+function makeTabs(bandImage, venue, date, offerTickets){
 
   createTab(bandImage, venue, date, offerTickets);
 
   $('.tabs').tabs(); //initializes tabs
-  console.log("make first element");
+  $('.tabs').tabs({ 'swipeable': true });
 
 }
 
 function createTab(bandImage, venue, date, offerTickets){
+
+  
         //<li class="tab col s3">
+        let currentTabs = $(".tab");
 
-        let newTab = $("<li>").attr("class", "tab"); //create new one
-        //newTab.attr("id", date);
-        //newTab.css("display", "block");
+        let makeNewTab = false;
 
-        //<a href="#test1">Test 1</a>
-  
-        let newLink = $("<a>").attr("href", "#"+date);
-        newLink.appendTo(newTab);
-        newLink.html(date);
-  
-        $("#dateTabs").append(newTab);
-  
-        //below is div that holds card
-  
-        //<div id="test1" class="col s12">Test 1</div>
-  
-        let contentDiv = $("<div>").attr("class", "col s12");
-        contentDiv.attr("id", date);
-  
-        contentDiv.append(makeEventCard(bandImage, venue, date, offerTickets));
-  
-        $("#tabRow").append(contentDiv);
+        if(currentTabs.length > 0){
+          for(var i=0;i < currentTabs.length;i++){
+
+            let tabDate = $(currentTabs[i])[0].innerText;
+
+            if(date == tabDate){
+              makeNewTab = false;
+              break;
+            }
+            else{
+              makeNewTab = true;
+            } 
+          }
+        }
+        else{
+          makeNewTab = true;
+        }
+
+        if(makeNewTab){
+
+          let newTab = $("<li>").attr("class", "tab"); //create new one
+    
+          let newLink = $("<a>").attr("href", "#"+date);
+          newLink.appendTo(newTab);
+          newLink.html(date);
+    
+          $("#dateTabs").append(newTab);
+
+          let contentDiv = $("<div>").attr("class", "col s12");
+          contentDiv.attr("id", date);
+    
+          contentDiv.append(makeEventCard(bandImage, venue, date, offerTickets));
+    
+          $("#tabRow").append(contentDiv);
+
+        }
+        else{
+          console.log("add to existing div");
+          $("#"+date).append(makeEventCard(bandImage, venue, date, offerTickets));
+        }
+
 }
 
 
@@ -211,52 +266,6 @@ function makeEventCard(bandImage, venue, date, offerTickets) { //builds a materi
   return cardDiv;
 }
 
-/*function getDates(dataBIT, dataTM){
-
-  let dates = [];
-
-  for(let i=0;i < dataBIT.length;i++){
-
-    let checkDate = dataBIT[i].date;
-    console.log("added date");
-
-    if(dates.includes(checkDate) == true){
-      // if date exists dont do anything
-      
-    }
-    else{//add date to array
-      dates.push(checkDate);
-      
-    }
-  }
-
-  for(let i=0;i < dataTM.length;i++){
-    let checkDate = dataTM[i].date;
-
-    if(dates.includes(checkDate)){
-      // if date exists dont do anything
-    }
-    else{//add date to array
-      dates.push(checkDate);
-    }
-  }
-
-  console.log(dates);
-
-}*/
-
-/*function makeTable(dates){
-
-  
-
-}
-
-function displayData(dataBIT, dataTM){
- 
-  getDates(dataBIT, dataTM);
-
-}*/
-
 //=======================================================
 // Here we are building the URL we need to query the database
 
@@ -272,13 +281,5 @@ function getLocation() {
     // We are also calling/invoking the getTicketMasterEvents function to pass the location data for the sidebar
     .then(function (response) {
       getTicketMasterEvents("", true, response.city, response.region_code, 5);
-      // Log the queryURL
-      console.log(queryURL);
-
-      // Log the resulting object
-      console.log(response);
-      console.log(response.city);
-      console.log(response.zip_code);
-
     });
 }

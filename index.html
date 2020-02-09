@@ -24,7 +24,7 @@
     <!-- Header -->
     <nav>
         <div class="nav-wrapper mainColor">
-            <a href="index.html" class="brand-logo mainColor">Concert Global</a>
+          <a href="index.html" class="brand-logo center">Concert Global</a>
         </div>
     </nav>
 
@@ -35,51 +35,38 @@
 
         <div class="row">
 
-            <div class="col s8 mainColor">
+            <div id="mainCol" class="col s8 mainColor border">
                 <div id="searchdiv" class="row">
                     <div class="row">
-                        <form class="col s12">
-                            <div class="row">
-                                <div class="input-field col s6">
-                                    <input placeholder="Artists" id="searchArtist" type="text" class="validate">
-                                </div>
-                                <div class="input-field col s6">
-                                    <input placeholder="ZipCode" id="searchZip" type="text" class="validate">
-                                </div>
-                            </div>
+                        <form class="col s12" autocomplete="off">
                             <div class="row">
                                 <div class="input-field col s12">
-                                    <input placeholder="Date" id="searchDate" type="text" class="validate">
+                                    <input placeholder="Artists" id="searchArtist" type="text" class="validate mainColor">
                                 </div>
                             </div>
 
-                            <div class="button"> <button class="btn waves-effect waves-light"
+                            <div class="button"> <button class="btn waves-effect waves-light mainColor"
                                     id="searchButton">Submit</button>
                             </div>
-
                         </form>
                     </div>
                 </div>
 
+                <h4 class="mainColor">Events:</h4>
 
-                <div id="resultDiv" class="Resultrow">Your Searches</div>
 
                 <div id="tabRow" class="row">
-                    <div class="col s12">
-                      <ul id="dateTabs" class="tabs">
 
-                      </ul>
-                    </div>
                 </div>
 
-            </div> <!-- end of col s9-->
+            </div> <!-- end of col s8-->
 
             <div class="col s1">
 
 
             </div>
 
-            <div class="col s3 sidePanel">
+            <div class="col s3 sidePanel border">
 
                 <div id="localEvents" class="localRow">Local Events</div>
 
