@@ -67,7 +67,7 @@ async function getBandsInTownEvents(bandName) {
 //Ticketmaster URL: https://app.ticketmaster.com/discovery/v2/events.json?apikey=  keyword=artistname
 
 
- function getTicketMasterEvents(bandName, getLocation, city, state, numberOfResults) { //number of results -1 is no limit
+ function getTicketMasterEvents(bandName, getLocation, latlong, state, numberOfResults) { //number of results -1 is no limit
 
 
   var app_id = "KuVXm1LhnrpiuKMG26AxMNsWRbNXefMp";
@@ -75,7 +75,7 @@ async function getBandsInTownEvents(bandName) {
   var queryURL = "";
 
   if (getLocation) {
-    queryURL = "https://app.ticketmaster.com/discovery/v2/events.json?apikey=" + app_id + "&city=" + city + "&stateCode=" + state + "&radius=10&classificationName=music";
+    queryURL = "https://app.ticketmaster.com/discovery/v2/events.json?apikey=" + app_id + "&latlong=" + latlong + "&stateCode=" + state + "&radius=10&classificationName=music";
   }
   else {
     queryURL = "https://app.ticketmaster.com/discovery/v2/events.json?apikey=" + app_id + "&keyword=" + bandName;
@@ -85,6 +85,8 @@ async function getBandsInTownEvents(bandName) {
     url: queryURL,
     method: "GET"
   }).then(function (response) {
+
+    console.log(queryURL);
 
     if(response.page.totalElements > 0){ //if we got something
 
@@ -280,6 +282,8 @@ function getLocation() {
     // We store all of the retrieved data inside of an object called "response"
     // We are also calling/invoking the getTicketMasterEvents function to pass the location data for the sidebar
     .then(function (response) {
-      getTicketMasterEvents("", true, "clifton", response.region_code, 5);
+
+      console.log(response);
+      getTicketMasterEvents("", true, response.latitude + "," + response.longitude, response.region_code, 5);
     });
 }
