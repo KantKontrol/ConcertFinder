@@ -37,7 +37,7 @@ html, body {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    width: 200px;
+    width: 100%;
     font-size: 25px;
     padding: 4px;
 }

@@ -146,7 +146,7 @@ function arrangeDate(date) {
 function displaySideEvent(bandName, date, offerTickets, venue, dataFrom) {
 
   let cardDiv = $("<div>").attr("class", "card");
-  cardDiv.css({ "position": "relative", "width": "200px", "float": "left", "display": "block" });
+  cardDiv.css({ "position": "relative", "width": "100%", "float": "left", "display": "block" });
 
   let cardTitle = $("<span>").attr("class", "card-title");
   $(cardTitle).attr("class", "sideCardText");
