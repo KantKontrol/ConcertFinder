@@ -33,12 +33,15 @@ async function getBandsInTownEvents(bandName) {
     method: "GET"
   }).done(function(response){
 
+    
+
     if(response.length > 0){
     
       let bandImage = response[0].artist.image_url;
+      bandName = response[0].artist.name;
 
       for (let i = 0; i < response.length; i++) {
-  
+
         let venue = response[i].venue.name + ", " + response[i].venue.city;
         let rawDate = response[i].datetime;
         let date = rawDate.substring(0, 10);
@@ -86,13 +89,14 @@ async function getBandsInTownEvents(bandName) {
     method: "GET"
   }).then(function (response) {
 
+
     if(response.page.totalElements > 0){ //if we got something
 
-     // console.log("got ticketmaster");
         var events = response._embedded.events;
 
-
         for (let i = 0; i < events.length; i++) {
+
+          bandName = events[i].name;
 
           let forSideBarName = events[i].name;
 
