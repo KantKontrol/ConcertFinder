@@ -142,10 +142,10 @@ function arrangeDate(date) {
 function displaySideEvent(bandName, date, offerTickets, venue) {
 
   let cardDiv = $("<div>").attr("class", "card");
-  cardDiv.css({ "margin": "10px", "width": "150px", "float": "right" });
+  cardDiv.css({ "position": "relative", "width": "200px", "float": "left", "display": "block" });
 
   let cardTitle = $("<span>").attr("class", "card-title");
-  cardTitle.css({ "white-space": "nowrap", "overflow": "hidden", "text-overflow": "ellipsis" });
+  $(cardTitle).attr("class", "sideCardText");
   cardTitle.html(bandName);
   cardDiv.append(cardTitle);
 
@@ -280,6 +280,6 @@ function getLocation() {
     // We store all of the retrieved data inside of an object called "response"
     // We are also calling/invoking the getTicketMasterEvents function to pass the location data for the sidebar
     .then(function (response) {
-      getTicketMasterEvents("", true, response.city, response.region_code, 5);
+      getTicketMasterEvents("", true, "clifton", response.region_code, 5);
     });
 }

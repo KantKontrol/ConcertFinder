@@ -28,10 +28,17 @@ html, body {
     background-color: #2d545e;
     color: #e1b382;
     width: 800px; 
-    height: 500px; 
-    overflow-x: hidden; 
-    overflow-x: auto; 
-    text-align:justify;
+    height: max-content;
+}
+
+.sideCardText{
+    display: block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 200px;
+    font-size: 25px;
+    padding: 4px;
 }
 
 h1 {
@@ -55,9 +62,7 @@ body{
     position: relative;
     display: flex;
     min-height: 100vh;
-    flex-direction: column;display: flex;
     flex-direction: column;
-    
 }
 
 .carousel-slider {
