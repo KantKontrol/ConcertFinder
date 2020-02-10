@@ -17,7 +17,8 @@ html, body {
 
 .dateColor {
     color: #e1b382;
-    font-size: large;
+    font-size: large !important;
+    display: block;
 }
 
 .mainContent {
@@ -28,10 +29,33 @@ html, body {
     background-color: #2d545e;
     color: #e1b382;
     width: 800px; 
-    height: 500px; 
-    overflow-x: hidden; 
-    overflow-x: auto; 
-    text-align:justify;
+    height: max-content;
+}
+
+.sideCardText{
+    display: block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 200px;
+    font-size: 25px;
+    padding: 4px;
+}
+
+.ellip {
+    width: 250px;
+    display: block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.card-title{
+    background-color: #2d545e;
+    color: #e1b382 !important;
+    padding: 2px !important;
+    font-size: 13px;
+    border: 1px solid #e1b382;
 }
 
 h1 {
@@ -55,10 +79,9 @@ body{
     position: relative;
     display: flex;
     min-height: 100vh;
-    flex-direction: column;display: flex;
     flex-direction: column;
-    
 }
+
 
 .carousel-slider {
     height: 500px !important;

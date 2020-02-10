@@ -33,19 +33,22 @@ async function getBandsInTownEvents(bandName) {
     method: "GET"
   }).done(function(response){
 
+    
+
     if(response.length > 0){
     
       let bandImage = response[0].artist.image_url;
+      bandName = response[0].artist.name;
 
       for (let i = 0; i < response.length; i++) {
-  
+
         let venue = response[i].venue.name + ", " + response[i].venue.city;
         let rawDate = response[i].datetime;
         let date = rawDate.substring(0, 10);
         date = arrangeDate(date);
         let offerTickets = response[i].url;
   
-        makeTabs(bandImage, venue, date, offerTickets);
+        makeTabs(bandName, bandImage, venue, date, offerTickets, "./bit-favi.png");
       }
 
       getTicketMasterEvents(bandName, false, "", "", -1);
@@ -67,7 +70,7 @@ async function getBandsInTownEvents(bandName) {
 //Ticketmaster URL: https://app.ticketmaster.com/discovery/v2/events.json?apikey=  keyword=artistname
 
 
- function getTicketMasterEvents(bandName, getLocation, city, state, numberOfResults) { //number of results -1 is no limit
+ function getTicketMasterEvents(bandName, getLocation, latlong, state, numberOfResults) { //number of results -1 is no limit
 
 
   var app_id = "KuVXm1LhnrpiuKMG26AxMNsWRbNXefMp";
@@ -75,7 +78,7 @@ async function getBandsInTownEvents(bandName) {
   var queryURL = "";
 
   if (getLocation) {
-    queryURL = "https://app.ticketmaster.com/discovery/v2/events.json?apikey=" + app_id + "&city=" + city + "&stateCode=" + state + "&radius=10&classificationName=music";
+    queryURL = "https://app.ticketmaster.com/discovery/v2/events.json?apikey=" + app_id + "&latlong=" + latlong + "&stateCode=" + state + "&radius=10&classificationName=music";
   }
   else {
     queryURL = "https://app.ticketmaster.com/discovery/v2/events.json?apikey=" + app_id + "&keyword=" + bandName;
@@ -86,13 +89,14 @@ async function getBandsInTownEvents(bandName) {
     method: "GET"
   }).then(function (response) {
 
+
     if(response.page.totalElements > 0){ //if we got something
 
-      console.log("got ticketmaster");
         var events = response._embedded.events;
 
-
         for (let i = 0; i < events.length; i++) {
+
+          bandName = events[i].name;
 
           let forSideBarName = events[i].name;
 
@@ -109,10 +113,10 @@ async function getBandsInTownEvents(bandName) {
           let offerTickets = events[i].url;
 
           if (numberOfResults == -1) {
-              makeTabs(bandImage, venue, date, offerTickets);
+              makeTabs(bandName, bandImage, venue, date, offerTickets, "./tm-favi.png");
           }
           else if (numberOfResults > 0) {
-              displaySideEvent(forSideBarName, date, offerTickets, venue);
+              displaySideEvent(forSideBarName, date, offerTickets, venue, "./tm-favi.png");
               numberOfResults--;
           }
         }
@@ -139,13 +143,13 @@ function arrangeDate(date) {
   return newDate;
 }
 
-function displaySideEvent(bandName, date, offerTickets, venue) {
+function displaySideEvent(bandName, date, offerTickets, venue, dataFrom) {
 
   let cardDiv = $("<div>").attr("class", "card");
-  cardDiv.css({ "margin": "10px", "width": "150px", "float": "right" });
+  cardDiv.css({ "position": "relative", "width": "200px", "float": "left", "display": "block" });
 
   let cardTitle = $("<span>").attr("class", "card-title");
-  cardTitle.css({ "white-space": "nowrap", "overflow": "hidden", "text-overflow": "ellipsis" });
+  $(cardTitle).attr("class", "sideCardText");
   cardTitle.html(bandName);
   cardDiv.append(cardTitle);
 
@@ -153,13 +157,16 @@ function displaySideEvent(bandName, date, offerTickets, venue) {
   cardDiv.append(cardContent);
 
   let dateHolder = $("<p>").html("Date: " + date + " at " + venue).attr("class", "dateColor");
-  dateHolder.css({ "color": "#d83c0c", "font-size": "medium" })
   cardContent.append(dateHolder);
+  
 
   let cardAction = $("<div>").attr("class", "card-action");
   cardAction.html($("<a>").attr("href", offerTickets).html("Tickets"));
+  cardDiv.append(cardAction);
 
-  cardContent.append(cardAction);
+  let iconHolder = $("<img>").attr("src", dataFrom).css("float", "right");
+  cardAction.append(iconHolder);
+
 
   $("#localEvents").append(cardDiv);
 }
@@ -177,16 +184,17 @@ function refreshTab(){
 
 }
 
-function makeTabs(bandImage, venue, date, offerTickets){
+function makeTabs(bandName, bandImage, venue, date, offerTickets, dataFrom){
+  
 
-  createTab(bandImage, venue, date, offerTickets);
+  createTab(bandName, bandImage, venue, date, offerTickets, dataFrom);
 
   $('.tabs').tabs(); //initializes tabs
   $('.tabs').tabs({ 'swipeable': true });
 
 }
 
-function createTab(bandImage, venue, date, offerTickets){
+function createTab(bandName, bandImage, venue, date, offerTickets, dataFrom){
 
   
         //<li class="tab col s3">
@@ -225,22 +233,21 @@ function createTab(bandImage, venue, date, offerTickets){
           let contentDiv = $("<div>").attr("class", "col s12");
           contentDiv.attr("id", date);
     
-          contentDiv.append(makeEventCard(bandImage, venue, date, offerTickets));
+          contentDiv.append(makeEventCard(bandName, bandImage, venue, date, offerTickets, dataFrom));
     
           $("#tabRow").append(contentDiv);
 
         }
         else{
-          console.log("add to existing div");
-          $("#"+date).append(makeEventCard(bandImage, venue, date, offerTickets));
+          $("#"+date).append(makeEventCard(bandName, bandImage, venue, date, offerTickets, dataFrom));
         }
 
 }
 
 
-function makeEventCard(bandImage, venue, date, offerTickets) { //builds a materialze card and displays content
+function makeEventCard(bandName, bandImage, venue, date, offerTickets, dataFrom) { //builds a materialze card and displays content
 
-  let cardDiv = $("<div>").attr("class", "card");
+  let cardDiv = $("<div>").attr("class", "card border");
   cardDiv.css({ "margin": "10px", "width": "max-content", "float": "left" });
 
   let cardImg = $("<div>").attr("class", "card-image");
@@ -255,13 +262,20 @@ function makeEventCard(bandImage, venue, date, offerTickets) { //builds a materi
   cardImg.append(cardTitle);
 
   let cardContent = $("<div>").attr("class", "card-content");
+  let nameHolder = $("<p>").html("Artist: " + bandName).attr("class", "dateColor ellip");
   let dateHolder = $("<p>").html("Date: " + date).attr("class", "dateColor");
+  cardContent.append(nameHolder);
   cardContent.append(dateHolder);
+  
   cardDiv.append(cardContent);
 
   let cardAction = $("<div>").attr("class", "card-action");
   cardAction.html($("<a>").attr("href", offerTickets).html("Tickets"));
   cardDiv.append(cardAction);
+
+  let iconHolder = $("<img>").attr("src", dataFrom).css("float", "right");
+  cardAction.append(iconHolder);
+
 
   return cardDiv;
 }
@@ -280,6 +294,6 @@ function getLocation() {
     // We store all of the retrieved data inside of an object called "response"
     // We are also calling/invoking the getTicketMasterEvents function to pass the location data for the sidebar
     .then(function (response) {
-      getTicketMasterEvents("", true, response.city, response.region_code, 5);
+      getTicketMasterEvents("", true, response.latitude + "," + response.longitude, response.region_code, 5);
     });
 }
