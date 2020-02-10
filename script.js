@@ -45,7 +45,7 @@ async function getBandsInTownEvents(bandName) {
         date = arrangeDate(date);
         let offerTickets = response[i].url;
   
-        makeTabs(bandImage, venue, date, offerTickets, "./bit-favi.png");
+        makeTabs(bandName, bandImage, venue, date, offerTickets, "./bit-favi.png");
       }
 
       getTicketMasterEvents(bandName, false, "", "", -1);
@@ -109,7 +109,7 @@ async function getBandsInTownEvents(bandName) {
           let offerTickets = events[i].url;
 
           if (numberOfResults == -1) {
-              makeTabs(bandImage, venue, date, offerTickets, "./tm-favi.png");
+              makeTabs(bandName, bandImage, venue, date, offerTickets, "./tm-favi.png");
           }
           else if (numberOfResults > 0) {
               displaySideEvent(forSideBarName, date, offerTickets, venue, "./tm-favi.png");
@@ -180,17 +180,17 @@ function refreshTab(){
 
 }
 
-function makeTabs(bandImage, venue, date, offerTickets, dataFrom){
+function makeTabs(bandName, bandImage, venue, date, offerTickets, dataFrom){
   
 
-  createTab(bandImage, venue, date, offerTickets, dataFrom);
+  createTab(bandName, bandImage, venue, date, offerTickets, dataFrom);
 
   $('.tabs').tabs(); //initializes tabs
   $('.tabs').tabs({ 'swipeable': true });
 
 }
 
-function createTab(bandImage, venue, date, offerTickets, dataFrom){
+function createTab(bandName, bandImage, venue, date, offerTickets, dataFrom){
 
   
         //<li class="tab col s3">
@@ -229,21 +229,21 @@ function createTab(bandImage, venue, date, offerTickets, dataFrom){
           let contentDiv = $("<div>").attr("class", "col s12");
           contentDiv.attr("id", date);
     
-          contentDiv.append(makeEventCard(bandImage, venue, date, offerTickets, dataFrom));
+          contentDiv.append(makeEventCard(bandName, bandImage, venue, date, offerTickets, dataFrom));
     
           $("#tabRow").append(contentDiv);
 
         }
         else{
-          $("#"+date).append(makeEventCard(bandImage, venue, date, offerTickets, dataFrom));
+          $("#"+date).append(makeEventCard(bandName, bandImage, venue, date, offerTickets, dataFrom));
         }
 
 }
 
 
-function makeEventCard(bandImage, venue, date, offerTickets, dataFrom) { //builds a materialze card and displays content
+function makeEventCard(bandName, bandImage, venue, date, offerTickets, dataFrom) { //builds a materialze card and displays content
 
-  let cardDiv = $("<div>").attr("class", "card");
+  let cardDiv = $("<div>").attr("class", "card border");
   cardDiv.css({ "margin": "10px", "width": "max-content", "float": "left" });
 
   let cardImg = $("<div>").attr("class", "card-image");
@@ -258,8 +258,10 @@ function makeEventCard(bandImage, venue, date, offerTickets, dataFrom) { //build
   cardImg.append(cardTitle);
 
   let cardContent = $("<div>").attr("class", "card-content");
+  let nameHolder = $("<p>").html("Artist " + bandName).attr("class", "dateColor");
   let dateHolder = $("<p>").html("Date: " + date).attr("class", "dateColor");
   cardContent.append(dateHolder);
+  cardContent.append(nameHolder);
   cardDiv.append(cardContent);
 
   let cardAction = $("<div>").attr("class", "card-action");

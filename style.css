@@ -44,8 +44,10 @@ html, body {
 
 .card-title{
     background-color: #2d545e;
-    padding: 0px !important;
+    color: #e1b382 !important;
+    padding: 2px !important;
     font-size: 13px;
+    border: 1px solid #e1b382;
 }
 
 h1 {
