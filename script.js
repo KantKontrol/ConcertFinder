@@ -45,7 +45,7 @@ async function getBandsInTownEvents(bandName) {
         date = arrangeDate(date);
         let offerTickets = response[i].url;
   
-        makeTabs(bandImage, venue, date, offerTickets);
+        makeTabs(bandImage, venue, date, offerTickets, "./bit-favi.png");
       }
 
       getTicketMasterEvents(bandName, false, "", "", -1);
@@ -86,11 +86,9 @@ async function getBandsInTownEvents(bandName) {
     method: "GET"
   }).then(function (response) {
 
-    console.log(queryURL);
-
     if(response.page.totalElements > 0){ //if we got something
 
-      console.log("got ticketmaster");
+     // console.log("got ticketmaster");
         var events = response._embedded.events;
 
 
@@ -111,7 +109,10 @@ async function getBandsInTownEvents(bandName) {
           let offerTickets = events[i].url;
 
           if (numberOfResults == -1) {
-              makeTabs(bandImage, venue, date, offerTickets);
+            
+            let src = "./tm-favi.png";
+            
+              makeTabs(bandImage, venue, date, offerTickets, src);
           }
           else if (numberOfResults > 0) {
               displaySideEvent(forSideBarName, date, offerTickets, venue);
@@ -179,16 +180,17 @@ function refreshTab(){
 
 }
 
-function makeTabs(bandImage, venue, date, offerTickets){
+function makeTabs(bandImage, venue, date, offerTickets, dataFrom){
+  
 
-  createTab(bandImage, venue, date, offerTickets);
+  createTab(bandImage, venue, date, offerTickets, dataFrom);
 
   $('.tabs').tabs(); //initializes tabs
   $('.tabs').tabs({ 'swipeable': true });
 
 }
 
-function createTab(bandImage, venue, date, offerTickets){
+function createTab(bandImage, venue, date, offerTickets, dataFrom){
 
   
         //<li class="tab col s3">
@@ -227,20 +229,19 @@ function createTab(bandImage, venue, date, offerTickets){
           let contentDiv = $("<div>").attr("class", "col s12");
           contentDiv.attr("id", date);
     
-          contentDiv.append(makeEventCard(bandImage, venue, date, offerTickets));
+          contentDiv.append(makeEventCard(bandImage, venue, date, offerTickets, dataFrom));
     
           $("#tabRow").append(contentDiv);
 
         }
         else{
-          console.log("add to existing div");
-          $("#"+date).append(makeEventCard(bandImage, venue, date, offerTickets));
+          $("#"+date).append(makeEventCard(bandImage, venue, date, offerTickets, dataFrom));
         }
 
 }
 
 
-function makeEventCard(bandImage, venue, date, offerTickets) { //builds a materialze card and displays content
+function makeEventCard(bandImage, venue, date, offerTickets, dataFrom) { //builds a materialze card and displays content
 
   let cardDiv = $("<div>").attr("class", "card");
   cardDiv.css({ "margin": "10px", "width": "max-content", "float": "left" });
@@ -258,7 +259,8 @@ function makeEventCard(bandImage, venue, date, offerTickets) { //builds a materi
 
   let cardContent = $("<div>").attr("class", "card-content");
   let dateHolder = $("<p>").html("Date: " + date).attr("class", "dateColor");
-  let iconHolder = $("<img>").attr("src", "./tm-favi.png").css("float", "right");
+
+  let iconHolder = $("<img>").attr("src", dataFrom).css("float", "right");
   cardContent.append(dateHolder);
   cardContent.append(iconHolder);
   cardDiv.append(cardContent);
@@ -284,8 +286,6 @@ function getLocation() {
     // We store all of the retrieved data inside of an object called "response"
     // We are also calling/invoking the getTicketMasterEvents function to pass the location data for the sidebar
     .then(function (response) {
-
-      console.log(response);
       getTicketMasterEvents("", true, response.latitude + "," + response.longitude, response.region_code, 5);
     });
 }
