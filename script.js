@@ -259,16 +259,14 @@ function makeEventCard(bandImage, venue, date, offerTickets, dataFrom) { //build
 
   let cardContent = $("<div>").attr("class", "card-content");
   let dateHolder = $("<p>").html("Date: " + date).attr("class", "dateColor");
-
-  let iconHolder = $("<img>").attr("src", dataFrom).css("float", "right");
   cardContent.append(dateHolder);
-  
   cardDiv.append(cardContent);
 
   let cardAction = $("<div>").attr("class", "card-action");
   cardAction.html($("<a>").attr("href", offerTickets).html("Tickets"));
   cardDiv.append(cardAction);
 
+  let iconHolder = $("<img>").attr("src", dataFrom).css("float", "right");
   cardAction.append(iconHolder);
 
 
