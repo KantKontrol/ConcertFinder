@@ -18,7 +18,7 @@ html, body {
 .dateColor {
     color: #e1b382;
     font-size: large !important;
-    display: inline-block;
+    display: block;
 }
 
 .mainContent {
