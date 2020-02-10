@@ -258,7 +258,9 @@ function makeEventCard(bandImage, venue, date, offerTickets) { //builds a materi
 
   let cardContent = $("<div>").attr("class", "card-content");
   let dateHolder = $("<p>").html("Date: " + date).attr("class", "dateColor");
+  let iconHolder = $("<img>").attr("src", "./tm-favi.png").css("float", "right");
   cardContent.append(dateHolder);
+  cardContent.append(iconHolder);
   cardDiv.append(cardContent);
 
   let cardAction = $("<div>").attr("class", "card-action");

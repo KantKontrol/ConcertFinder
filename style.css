@@ -18,6 +18,7 @@ html, body {
 .dateColor {
     color: #e1b382;
     font-size: large;
+    display: inline-block;
 }
 
 .mainContent {
@@ -63,6 +64,16 @@ body{
     display: flex;
     min-height: 100vh;
     flex-direction: column;
+}
+
+.tmIcon {
+    width: 50px;
+    height: 50px;
+    background-image: url(./tm-favi.png);
+}
+
+.bitIcon {
+    background-image: url(./bit-favi.png);
 }
 
 .carousel-slider {
