@@ -109,13 +109,10 @@ async function getBandsInTownEvents(bandName) {
           let offerTickets = events[i].url;
 
           if (numberOfResults == -1) {
-            
-            let src = "./tm-favi.png";
-            
-              makeTabs(bandImage, venue, date, offerTickets, src);
+              makeTabs(bandImage, venue, date, offerTickets, "./tm-favi.png");
           }
           else if (numberOfResults > 0) {
-              displaySideEvent(forSideBarName, date, offerTickets, venue);
+              displaySideEvent(forSideBarName, date, offerTickets, venue, "./tm-favi.png");
               numberOfResults--;
           }
         }
@@ -142,7 +139,7 @@ function arrangeDate(date) {
   return newDate;
 }
 
-function displaySideEvent(bandName, date, offerTickets, venue) {
+function displaySideEvent(bandName, date, offerTickets, venue, dataFrom) {
 
   let cardDiv = $("<div>").attr("class", "card");
   cardDiv.css({ "position": "relative", "width": "200px", "float": "left", "display": "block" });
@@ -156,13 +153,16 @@ function displaySideEvent(bandName, date, offerTickets, venue) {
   cardDiv.append(cardContent);
 
   let dateHolder = $("<p>").html("Date: " + date + " at " + venue).attr("class", "dateColor");
-  dateHolder.css({ "color": "#d83c0c", "font-size": "medium" })
   cardContent.append(dateHolder);
+  
 
   let cardAction = $("<div>").attr("class", "card-action");
   cardAction.html($("<a>").attr("href", offerTickets).html("Tickets"));
+  cardDiv.append(cardAction);
 
-  cardContent.append(cardAction);
+  let iconHolder = $("<img>").attr("src", dataFrom).css("float", "right");
+  cardAction.append(iconHolder);
+
 
   $("#localEvents").append(cardDiv);
 }
@@ -262,12 +262,15 @@ function makeEventCard(bandImage, venue, date, offerTickets, dataFrom) { //build
 
   let iconHolder = $("<img>").attr("src", dataFrom).css("float", "right");
   cardContent.append(dateHolder);
-  cardContent.append(iconHolder);
+  
   cardDiv.append(cardContent);
 
   let cardAction = $("<div>").attr("class", "card-action");
   cardAction.html($("<a>").attr("href", offerTickets).html("Tickets"));
   cardDiv.append(cardAction);
+
+  cardAction.append(iconHolder);
+
 
   return cardDiv;
 }
