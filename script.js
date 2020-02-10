@@ -146,7 +146,7 @@ function arrangeDate(date) {
 function displaySideEvent(bandName, date, offerTickets, venue, dataFrom) {
 
   let cardDiv = $("<div>").attr("class", "card");
-  cardDiv.css({ "position": "relative", "width": "200px", "float": "left", "display": "block" });
+  cardDiv.css({ "position": "relative", "width": "100%", "float": "left", "display": "block" });
 
   let cardTitle = $("<span>").attr("class", "card-title");
   $(cardTitle).attr("class", "sideCardText");
@@ -161,7 +161,7 @@ function displaySideEvent(bandName, date, offerTickets, venue, dataFrom) {
   
 
   let cardAction = $("<div>").attr("class", "card-action");
-  cardAction.html($("<a>").attr("href", offerTickets).html("Tickets"));
+  cardAction.html($("<a>").attr({"href": offerTickets, "target": "_blank"}).html("Tickets"));
   cardDiv.append(cardAction);
 
   let iconHolder = $("<img>").attr("src", dataFrom).css("float", "right");
@@ -270,7 +270,7 @@ function makeEventCard(bandName, bandImage, venue, date, offerTickets, dataFrom)
   cardDiv.append(cardContent);
 
   let cardAction = $("<div>").attr("class", "card-action");
-  cardAction.html($("<a>").attr("href", offerTickets).html("Tickets"));
+  cardAction.html($("<a>").attr({"href": offerTickets, "target": "_blank"}).html("Tickets"));
   cardDiv.append(cardAction);
 
   let iconHolder = $("<img>").attr("src", dataFrom).css("float", "right");

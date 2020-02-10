@@ -37,7 +37,7 @@ html, body {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    width: 200px;
+    width: 100%;
     font-size: 25px;
     padding: 4px;
 }
@@ -74,8 +74,7 @@ nav {
 
 body{
     background-image: url(./navy_blue.png);
-    background-repeat: no repeat;
-    background-size: cover;
+    background-repeat: repeat;
     position: relative;
     display: flex;
     min-height: 100vh;
