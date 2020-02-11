@@ -149,14 +149,14 @@ function displaySideEvent(bandName, date, offerTickets, venue, dataFrom) {
   cardDiv.css({ "position": "relative", "width": "100%", "float": "left", "display": "block" });
 
   let cardTitle = $("<span>").attr("class", "card-title");
-  $(cardTitle).attr("class", "sideCardText");
+  $(cardTitle).attr("class", "sideCardText newFont");
   cardTitle.html(bandName);
   cardDiv.append(cardTitle);
 
   let cardContent = $("<div>").attr("class", "card-content");
   cardDiv.append(cardContent);
 
-  let dateHolder = $("<p>").html("Date: " + date + " at " + venue).attr("class", "dateColor");
+  let dateHolder = $("<p>").html("Date: " + date + " at " + venue).attr("class", "dateColor newFont");
   cardContent.append(dateHolder);
   
 
@@ -257,14 +257,14 @@ function makeEventCard(bandName, bandImage, venue, date, offerTickets, dataFrom)
   img.css({ "width": "300px", "height": "200px" });
   cardImg.append(img);
 
-  let cardTitle = $("<span>").attr("class", "card-title");
+  let cardTitle = $("<span>").attr("class", "card-title newFont");
   cardTitle.html(venue);
   cardImg.append(cardTitle);
 
   let cardContent = $("<div>").attr("class", "card-content");
   cardContent.css("border-top", "1px solid #e1b382");
-  let nameHolder = $("<p>").html("Artist: " + bandName).attr("class", "dateColor ellip");
-  let dateHolder = $("<p>").html("Date: " + date).attr("class", "dateColor");
+  let nameHolder = $("<p>").html("Artist: " + bandName).attr("class", "dateColor ellip newFont");
+  let dateHolder = $("<p>").html("Date: " + date).attr("class", "dateColor newFont");
   cardContent.append(nameHolder);
   cardContent.append(dateHolder);
   

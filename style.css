@@ -95,14 +95,14 @@ body{
 
 ::-webkit-scrollbar{
     width: 10px;
-    height: 5px;
+    height: 7px;
 }
 
 ::-webkit-scrollbar-track {
     background: transparent;
 }
 
-.tabs::-webkit-scrollbar-track:horizontal {
+::-webkit-scrollbar-track:horizontal {
     background: transparent;
 }
 
@@ -123,6 +123,9 @@ body{
     padding-bottom: 15px;
     text-align: center;
     border-top: 2px solid #e1b382;
+    font-style: italic;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    
 }
 
 .button{
@@ -143,14 +146,20 @@ a{
 input::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
     color: #e1b382;
     opacity: 1; /* Firefox */
+    font-style: italic;
+    font-family: Georgia, 'Times New Roman', Times, serif;
 }
   
 input:-ms-input-placeholder { /* Internet Explorer 10-11 */
     color: #e1b382;
+    font-style: italic;
+    font-family: Georgia, 'Times New Roman', Times, serif;
   }
   
 input::-ms-input-placeholder { /* Microsoft Edge */
     color: #e1b382;
+    font-style: italic;
+    font-family: Georgia, 'Times New Roman', Times, serif;
 }
 
 .nav-wrapper {
@@ -161,6 +170,22 @@ input::-ms-input-placeholder { /* Microsoft Edge */
     color: antiquewhite; 
 }
 
+.brand-logo{
+    font-style: italic;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-size: 50px !important;
+}
+
+.newFont{
+    font-style: italic;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+
+
+
+
+
 @media only screen and (max-width : 992px) {
     header, main, footer  {
       padding-left: 0;
@@ -169,5 +194,7 @@ input::-ms-input-placeholder { /* Microsoft Edge */
         display: none;
     }
 }
+
+
 
 
