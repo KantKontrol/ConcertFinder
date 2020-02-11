@@ -98,6 +98,18 @@ body{
     height: 5px;
 }
 
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.tabs::-webkit-scrollbar-track:horizontal {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #e1b382;
+}
+
 .container{
     flex: 1 0 auto;
 }
