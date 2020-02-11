@@ -29,7 +29,8 @@ html, body {
     background-color: #2d545e;
     color: #e1b382;
     width: 800px; 
-    height: max-content;
+    overflow-y: auto;
+    /* height: max-content; */
 }
 
 .sideCardText{
@@ -73,13 +74,14 @@ nav {
 }
 
 body{
-    background-image: url(./navy_blue.png);
-    background-repeat: no repeat;
-    background-size: cover;
+    background-image: url(./background-1.jpg);
+    background-repeat: no-repeat;
+    background-size: 160%;
     position: relative;
     display: flex;
     min-height: 100vh;
     flex-direction: column;
+    
 }
 
 
