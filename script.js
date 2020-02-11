@@ -145,7 +145,7 @@ function arrangeDate(date) {
 
 function displaySideEvent(bandName, date, offerTickets, venue, dataFrom) {
 
-  let cardDiv = $("<div>").attr("class", "card");
+  let cardDiv = $("<div>").attr("class", "card navyBack border");
   cardDiv.css({ "position": "relative", "width": "100%", "float": "left", "display": "block" });
 
   let cardTitle = $("<span>").attr("class", "card-title");
@@ -160,7 +160,7 @@ function displaySideEvent(bandName, date, offerTickets, venue, dataFrom) {
   cardContent.append(dateHolder);
   
 
-  let cardAction = $("<div>").attr("class", "card-action");
+  let cardAction = $("<div>").attr("class", "card-action navyBack");
   cardAction.html($("<a>").attr({"href": offerTickets, "target": "_blank"}).html("Tickets"));
   cardDiv.append(cardAction);
 
@@ -179,7 +179,7 @@ function refreshTab(){
   let newCol = $("<div>").attr("class", "col s12");
   newCol.appendTo($("#tabRow"));
 
-  let tabs = $("<ul>").attr({"id": "dateTabs", "class": "tabs"});
+  let tabs = $("<ul>").attr({"id": "dateTabs", "class": "tabs border"});
   tabs.appendTo($("#tabRow"));
 
 }
@@ -222,7 +222,7 @@ function createTab(bandName, bandImage, venue, date, offerTickets, dataFrom){
 
         if(makeNewTab){
 
-          let newTab = $("<li>").attr("class", "tab"); //create new one
+          let newTab = $("<li>").attr("class", "tab navyBack"); //create new one
     
           let newLink = $("<a>").attr("href", "#"+date);
           newLink.appendTo(newTab);
@@ -247,7 +247,7 @@ function createTab(bandName, bandImage, venue, date, offerTickets, dataFrom){
 
 function makeEventCard(bandName, bandImage, venue, date, offerTickets, dataFrom) { //builds a materialze card and displays content
 
-  let cardDiv = $("<div>").attr("class", "card border");
+  let cardDiv = $("<div>").attr("class", "card navyBack border");
   cardDiv.css({ "margin": "10px", "width": "max-content", "float": "left" });
 
   let cardImg = $("<div>").attr("class", "card-image");
@@ -262,6 +262,7 @@ function makeEventCard(bandName, bandImage, venue, date, offerTickets, dataFrom)
   cardImg.append(cardTitle);
 
   let cardContent = $("<div>").attr("class", "card-content");
+  cardContent.css("border-top", "1px solid #e1b382");
   let nameHolder = $("<p>").html("Artist: " + bandName).attr("class", "dateColor ellip");
   let dateHolder = $("<p>").html("Date: " + date).attr("class", "dateColor");
   cardContent.append(nameHolder);
@@ -269,7 +270,7 @@ function makeEventCard(bandName, bandImage, venue, date, offerTickets, dataFrom)
   
   cardDiv.append(cardContent);
 
-  let cardAction = $("<div>").attr("class", "card-action");
+  let cardAction = $("<div>").attr("class", "card-action navyBack");
   cardAction.html($("<a>").attr({"href": offerTickets, "target": "_blank"}).html("Tickets"));
   cardDiv.append(cardAction);
 
