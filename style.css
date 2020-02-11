@@ -22,14 +22,19 @@ html, body {
 }
 
 .mainContent {
-    margin-top: 50px
+    margin-top: 50px;
+}
+
+.navyBack{
+    background-image: url(./navy_blue.png);
 }
 
 .sidePanel {
     background-color: #2d545e;
     color: #e1b382;
-    width: 800px; 
-    height: max-content;
+    width: 800px;
+    height: 600px;
+    overflow-y: scroll;
 }
 
 .sideCardText{
@@ -51,11 +56,12 @@ html, body {
 }
 
 .card-title{
-    background-color: #2d545e;
+    background-image: url(./navy_blue.png);
     color: #e1b382 !important;
     padding: 2px !important;
     font-size: 13px;
-    border: 1px solid #e1b382;
+    border-top: 1px solid #e1b382;
+    border-right: 1px solid #e1b382;
 }
 
 h1 {
@@ -73,8 +79,8 @@ nav {
 }
 
 body{
-    background-image: url(./navy_blue.png);
-    background-repeat: repeat;
+    background-image: url(./background-1.jpg);
+    background-repeat: no repeat;
     position: relative;
     display: flex;
     min-height: 100vh;
@@ -85,6 +91,11 @@ body{
 .carousel-slider {
     height: 500px !important;
     overflow-y: scroll;
+}
+
+::-webkit-scrollbar{
+    width: 10px;
+    height: 5px;
 }
 
 .container{
@@ -105,6 +116,11 @@ body{
 .button{
     padding-left: 15px;
     padding-bottom: 15px;
+}
+
+.tabMargin{
+    height: 60px;
+    padding-bottom: 60px;
 }
 
 a{
